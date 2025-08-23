@@ -2,8 +2,9 @@
   "include": ["src"],
   "compilerOptions": {
     "lib": ["esnext", "dom"],
-    "module": "node16",
-    "target": "es6",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "esnext",
     "strict": true,
     "rewriteRelativeImportExtensions": true,
     "verbatimModuleSyntax": true,
@@ -12,6 +13,7 @@
     "sourceMap": true,
     "declarationMap": true,
     "resolveJsonModule": true,
+    "resolvePackageJsonExports": true,
     "outDir": "lib"
   }
 }
