@@ -1,4 +1,3 @@
-import { ParsingError } from "@xieyuheng/x-data.js"
 import assert from "node:assert"
 import fs from "node:fs"
 import { expFreeNames } from "../exp/expFreeNames.ts"
@@ -16,20 +15,12 @@ export async function load(url: URL): Promise<Mod> {
   if (found !== undefined) return found.mod
 
   const text = await fs.promises.readFile(url.pathname, "utf8")
+  const mod = createMod(url)
+  mod.stmts = parseStmts(text)
 
-  try {
-    const mod = createMod(url)
-    mod.stmts = parseStmts(text)
-    globalLoadedMods.set(url.href, { mod, text })
-    await run(mod)
-    return mod
-  } catch (error) {
-    if (error instanceof ParsingError) {
-      throw new Error(error.report())
-    }
-
-    throw error
-  }
+  globalLoadedMods.set(url.href, { mod, text })
+  await run(mod)
+  return mod
 }
 
 async function run(mod: Mod): Promise<void> {
