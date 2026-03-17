@@ -1,6 +1,6 @@
-import { freshen } from "../../utils/name/freshen.ts"
 import { apply } from "../evaluate/index.ts"
 import { formatValue } from "../format/index.ts"
+import * as L from "../index.ts"
 import * as Neutrals from "../value/index.ts"
 import * as Values from "../value/index.ts"
 import { type Neutral, type Value } from "../value/index.ts"
@@ -30,14 +30,14 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
   }
 
   if (lhs.kind === "ClosureValue") {
-    const freshName = freshen(ctx.boundNames, lhs.name)
+    const freshName = L.generateFreshName(lhs.name)
     ctx = ctxBindName(ctx, freshName)
     const arg = Values.NeutralValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, apply(lhs, arg), apply(rhs, arg))
   }
 
   if (rhs.kind === "ClosureValue") {
-    const freshName = freshen(ctx.boundNames, rhs.name)
+    const freshName = L.generateFreshName(rhs.name)
     ctx = ctxBindName(ctx, freshName)
     const arg = Values.NeutralValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, apply(lhs, arg), apply(rhs, arg))

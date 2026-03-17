@@ -1,6 +1,6 @@
-import { freshen } from "../../utils/name/freshen.ts"
 import { apply } from "../evaluate/index.ts"
 import { formatValue } from "../format/index.ts"
+import * as L from "../index.ts"
 import { same } from "../same/index.ts"
 import * as Neutrals from "../value/index.ts"
 import * as Values from "../value/index.ts"
@@ -33,7 +33,7 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     //   }
     // }
 
-    const freshName = freshen(ctx.boundNames, lhs.name)
+    const freshName = L.generateFreshName(lhs.name)
     ctx = ctxBindName(ctx, freshName)
     const v = Neutrals.VarNeutral(freshName)
     const arg = Values.NeutralValue(v)
@@ -49,7 +49,7 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     //   }
     // }
 
-    const freshName = freshen(ctx.boundNames, rhs.name)
+    const freshName = L.generateFreshName(rhs.name)
     ctx = ctxBindName(ctx, freshName)
     const v = Neutrals.VarNeutral(freshName)
     const arg = Values.NeutralValue(v)

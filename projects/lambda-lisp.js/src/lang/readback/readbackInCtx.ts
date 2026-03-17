@@ -1,7 +1,7 @@
-import { freshen } from "../../utils/name/freshen.ts"
 import { apply } from "../evaluate/index.ts"
 import * as Exps from "../exp/index.ts"
 import { type Exp } from "../exp/index.ts"
+import * as L from "../index.ts"
 import * as Neutrals from "../value/index.ts"
 import * as Values from "../value/index.ts"
 import { type Neutral, type Value } from "../value/index.ts"
@@ -23,7 +23,7 @@ export function readbackInCtx(ctx: Ctx, value: Value): Exp {
       //   }
       // }
 
-      const freshName = freshen(ctx.boundNames, value.name)
+      const freshName = L.generateFreshName(value.name)
       ctx = ctxBindName(ctx, freshName)
       const arg = Values.NeutralValue(Neutrals.VarNeutral(freshName))
       const ret = apply(value, arg)
