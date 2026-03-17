@@ -1,17 +1,8 @@
+import type { Definition } from "../definition/index.ts"
 import { emptyEnv } from "../env/Env.ts"
 import { evaluate } from "../evaluate/evaluate.ts"
-import { type Exp } from "../exp/index.ts"
 import { type Stmt } from "../stmt/index.ts"
 import { type Value } from "../value/index.ts"
-
-export type Definition = {
-  mod: Mod
-  name: string
-  exp: Exp
-  freeNames?: Set<string>
-  value?: Value
-  isRecursive?: boolean
-}
 
 export type Mod = {
   url: URL

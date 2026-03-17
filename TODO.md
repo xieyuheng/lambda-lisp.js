@@ -1,6 +1,5 @@
 > back to call-by-value evaluation
 
-extract definition/
 rename bind to binding
 
 remove Lazy
