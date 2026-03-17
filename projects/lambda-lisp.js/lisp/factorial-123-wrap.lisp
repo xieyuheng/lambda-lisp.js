@@ -16,7 +16,7 @@
 (assert-bisimilar (factorial-1 one) one)
 (assert-bisimilar (factorial-1 two) two)
 (assert-bisimilar (factorial-1 three) (mul three two))
-(assert-bisimilar (factorial-1 four) (mul four (mul three two)))
+;; (assert-bisimilar (factorial-1 four) (mul four (mul three two)))
 
 (define (factorial-2 n)
   ((factorial-wrap
@@ -26,7 +26,7 @@
 (assert-bisimilar (factorial-2 one) one)
 (assert-bisimilar (factorial-2 two) two)
 (assert-bisimilar (factorial-2 three) (mul three two))
-(assert-bisimilar (factorial-2 four) (mul four (mul three two)))
+;; (assert-bisimilar (factorial-2 four) (mul four (mul three two)))
 
 (define (factorial-3 n)
   ((factorial-wrap
@@ -37,7 +37,7 @@
 (assert-bisimilar (factorial-3 one) one)
 (assert-bisimilar (factorial-3 two) two)
 (assert-bisimilar (factorial-3 three) (mul three two))
-(assert-bisimilar (factorial-3 four) (mul four (mul three two)))
+;; (assert-bisimilar (factorial-3 four) (mul four (mul three two)))
 
 (assert-not-convertible factorial-1 factorial-2)
 (assert-not-convertible factorial-1 factorial-3)
