@@ -25,17 +25,25 @@
 (assert-bisimilar (sub1 one) zero)
 (assert-bisimilar (sub1 zero) zero)
 
-(define (add-wrap add)
+;; (define (add-wrap add)
+;;   (lambda (m n)
+;;     (which-Nat m
+;;       n
+;;       (lambda (prev) (add1 (add prev n))))))
+
+;; (define add (Y add-wrap))
+
+(define (add-half self)
   (lambda (m n)
     (which-Nat m
       n
-      (lambda (prev) (add1 (add prev n))))))
+      (lambda (prev) (add1 (self self prev n))))))
 
-(define add (Y add-wrap))
+(define add (add-half add-half))
 
 (assert-bisimilar (add zero zero) zero)
 (assert-bisimilar (add zero one) one)
-;; (assert-bisimilar (add one zero) one)
+(assert-bisimilar (add one zero) one)
 ;; (assert-bisimilar (add one one) two)
 ;; (assert-bisimilar (add two two) four)
 ;; (assert-bisimilar (add two five) seven)

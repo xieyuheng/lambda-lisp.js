@@ -1,3 +1,5 @@
+[question] `nat-scott.lisp` -- why `-half` works, but `Y` and `-wrap` does not work?
+
 `valueConvertible` -- handle eta-equivalence
 
 ```scheme
