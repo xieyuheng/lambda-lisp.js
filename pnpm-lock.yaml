@@ -1,0 +1,100 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@xieyuheng/commander.js':
+        specifier: ^0.1.3
+        version: 0.1.5
+      '@xieyuheng/x-data.js':
+        specifier: ^0.1.26
+        version: 0.1.32
+    devDependencies:
+      '@types/node':
+        specifier: ^24.3.0
+        version: 24.12.0
+      prettier:
+        specifier: ^3.6.2
+        version: 3.8.1
+      prettier-plugin-organize-imports:
+        specifier: ^4.2.0
+        version: 4.3.0(prettier@3.8.1)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
+
+packages:
+
+  '@types/node@24.12.0':
+    resolution: {integrity: sha512-GYDxsZi3ChgmckRT9HPU0WEhKLP08ev/Yfcq2AstjrDASOYCSXeyjDsHg4v5t4jOj7cyDX3vmprafKlWIG9MXQ==}
+
+  '@types/yargs-parser@21.0.3':
+    resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
+
+  '@xieyuheng/commander.js@0.1.5':
+    resolution: {integrity: sha512-xNURLT7rXD3vhiCijYouYz/GSak5+tR30ZkrPC1iR4t3SWyRo5Z3OsLY3NMf/l02vtIDJYFo8xful1UmTDuGuQ==}
+    hasBin: true
+
+  '@xieyuheng/x-data.js@0.1.32':
+    resolution: {integrity: sha512-nh0fLvtke6tSbj63hTgu85rgqj3O2xg3evSYjLGYLXc1em6N9lXPTjzzBUmvn0Gn5aOTldDLQCQ2pk4RenHx7w==}
+    hasBin: true
+
+  prettier-plugin-organize-imports@4.3.0:
+    resolution: {integrity: sha512-FxFz0qFhyBsGdIsb697f/EkvHzi5SZOhWAjxcx2dLt+Q532bAlhswcXGYB1yzjZ69kW8UoadFBw7TyNwlq96Iw==}
+    peerDependencies:
+      prettier: '>=2.0'
+      typescript: '>=2.9'
+      vue-tsc: ^2.1.0 || 3
+    peerDependenciesMeta:
+      vue-tsc:
+        optional: true
+
+  prettier@3.8.1:
+    resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
+    engines: {node: '>=14'}
+    hasBin: true
+
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  undici-types@7.16.0:
+    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
+
+  yargs-parser@22.0.0:
+    resolution: {integrity: sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=23}
+
+snapshots:
+
+  '@types/node@24.12.0':
+    dependencies:
+      undici-types: 7.16.0
+
+  '@types/yargs-parser@21.0.3': {}
+
+  '@xieyuheng/commander.js@0.1.5':
+    dependencies:
+      '@types/yargs-parser': 21.0.3
+      yargs-parser: 22.0.0
+
+  '@xieyuheng/x-data.js@0.1.32': {}
+
+  prettier-plugin-organize-imports@4.3.0(prettier@3.8.1)(typescript@5.9.3):
+    dependencies:
+      prettier: 3.8.1
+      typescript: 5.9.3
+
+  prettier@3.8.1: {}
+
+  typescript@5.9.3: {}
+
+  undici-types@7.16.0: {}
+
+  yargs-parser@22.0.0: {}
