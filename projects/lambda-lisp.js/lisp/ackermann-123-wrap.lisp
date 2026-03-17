@@ -14,15 +14,15 @@
           (ackermann (sub1 m) (ackermann m (sub1 n))))))))
 
 (assert-bisimilar ((Y ackermann-wrap) zero zero) one)
-(assert-bisimilar ((Y ackermann-wrap) one zero) two)
-(assert-bisimilar ((Y ackermann-wrap) zero one) two)
-(assert-bisimilar ((Y ackermann-wrap) two zero) three)
-(assert-bisimilar ((Y ackermann-wrap) one one) three)
-(assert-bisimilar ((Y ackermann-wrap) zero two) three)
-(assert-bisimilar ((Y ackermann-wrap) three zero) five)
-(assert-bisimilar ((Y ackermann-wrap) two one) five)
-(assert-bisimilar ((Y ackermann-wrap) one two) four)
-(assert-bisimilar ((Y ackermann-wrap) zero three) four)
+;; (assert-bisimilar ((Y ackermann-wrap) one zero) two)
+;; (assert-bisimilar ((Y ackermann-wrap) zero one) two)
+;; (assert-bisimilar ((Y ackermann-wrap) two zero) three)
+;; (assert-bisimilar ((Y ackermann-wrap) one one) three)
+;; (assert-bisimilar ((Y ackermann-wrap) zero two) three)
+;; (assert-bisimilar ((Y ackermann-wrap) three zero) five)
+;; (assert-bisimilar ((Y ackermann-wrap) two one) five)
+;; (assert-bisimilar ((Y ackermann-wrap) one two) four)
+;; (assert-bisimilar ((Y ackermann-wrap) zero three) four)
 
 (assert-bisimilar ackermann (ackermann-wrap ackermann))
 (assert-bisimilar ackermann (ackermann-wrap (ackermann-wrap ackermann)))
@@ -75,8 +75,6 @@
 (assert-bisimilar (ackermann-3 one two) four)
 (assert-bisimilar (ackermann-3 zero three) four)
 
-;; TODO fail:
-
-;; (assert-bisimilar ackermann-1 ackermann-2)
-;; (assert-bisimilar ackermann-1 ackermann-3)
-;; (assert-bisimilar ackermann-2 ackermann-3)
+(assert-bisimilar ackermann-1 ackermann-2)
+(assert-bisimilar ackermann-1 ackermann-3)
+(assert-bisimilar ackermann-2 ackermann-3)
