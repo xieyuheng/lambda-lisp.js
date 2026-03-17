@@ -1,5 +1,3 @@
-rename readbackInCtx to readback
-
 rename assert-equal to assert-bisimilar
 rename assert-same to assert-convertible
 
