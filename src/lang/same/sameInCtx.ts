@@ -16,7 +16,7 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     console.log("[sameInCtx]", ctx.depth, "=", formatValue(rhs))
   }
 
-  if (lhs.kind === "NotYetValue" && rhs.kind === "NotYetValue") {
+  if (lhs.kind === "NeutralValue" && rhs.kind === "NeutralValue") {
     return sameNeutralInCtx(ctx, lhs.neutral, rhs.neutral)
   }
 
@@ -32,14 +32,14 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
   if (lhs.kind === "ClosureValue") {
     const freshName = freshen(ctx.boundNames, lhs.name)
     ctx = ctxBindName(ctx, freshName)
-    const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
+    const arg = Values.NeutralValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, apply(lhs, arg), apply(rhs, arg))
   }
 
   if (rhs.kind === "ClosureValue") {
     const freshName = freshen(ctx.boundNames, rhs.name)
     ctx = ctxBindName(ctx, freshName)
-    const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
+    const arg = Values.NeutralValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, apply(lhs, arg), apply(rhs, arg))
   }
 

@@ -3,16 +3,16 @@ import { type Exp } from "../exp/index.ts"
 import { type Mod } from "../mod/index.ts"
 import { type Neutral } from "../value/index.ts"
 
-export type Value = NotYetValue | ClosureValue
+export type Value = NeutralValue | ClosureValue
 
-export type NotYetValue = {
-  kind: "NotYetValue"
+export type NeutralValue = {
+  kind: "NeutralValue"
   neutral: Neutral
 }
 
-export function NotYetValue(neutral: Neutral): NotYetValue {
+export function NeutralValue(neutral: Neutral): NeutralValue {
   return {
-    kind: "NotYetValue",
+    kind: "NeutralValue",
     neutral,
   }
 }

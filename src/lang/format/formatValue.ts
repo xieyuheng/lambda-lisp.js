@@ -3,7 +3,7 @@ import { type Neutral, type Value } from "../value/index.ts"
 
 export function formatValue(value: Value): string {
   switch (value.kind) {
-    case "NotYetValue": {
+    case "NeutralValue": {
       return formatNeutral(value.neutral)
     }
 

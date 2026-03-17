@@ -9,7 +9,7 @@ import { ctxBindName, type Ctx } from "./Ctx.ts"
 
 export function readbackInCtx(ctx: Ctx, value: Value): Exp {
   switch (value.kind) {
-    case "NotYetValue": {
+    case "NeutralValue": {
       return readbackNeutralInCtx(ctx, value.neutral)
     }
 
@@ -25,7 +25,7 @@ export function readbackInCtx(ctx: Ctx, value: Value): Exp {
 
       const freshName = freshen(ctx.boundNames, value.name)
       ctx = ctxBindName(ctx, freshName)
-      const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
+      const arg = Values.NeutralValue(Neutrals.VarNeutral(freshName))
       const ret = apply(value, arg)
       return Exps.Lambda(freshName, readbackInCtx(ctx, ret))
     }

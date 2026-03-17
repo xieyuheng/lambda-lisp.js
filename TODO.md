@@ -1,3 +1,8 @@
+# value
+
+`valueConvertible`
+`valueBisimilar`
+
 # bug
 
 [bug] `(assert-equal fibonacci fibonacci/1)` fail

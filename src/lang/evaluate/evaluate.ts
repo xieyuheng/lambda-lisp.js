@@ -16,7 +16,7 @@ export function evaluate(mod: Mod, env: Env, exp: Exp): Value {
 
       const definition = modLookup(mod, exp.name)
       if (definition !== undefined) {
-        return L.NotYetValue(L.ConstantNeutral(definition))
+        return L.NeutralValue(L.ConstantNeutral(definition))
       }
 
       let message = `[evaluate] undefined name`
@@ -48,8 +48,8 @@ export function evaluate(mod: Mod, env: Env, exp: Exp): Value {
 
 export function apply(target: Value, arg: Value): Value {
   switch (target.kind) {
-    case "NotYetValue": {
-      return Values.NotYetValue(Neutrals.ApplyNeutral(target.neutral, arg))
+    case "NeutralValue": {
+      return Values.NeutralValue(Neutrals.ApplyNeutral(target.neutral, arg))
     }
 
     case "ClosureValue": {
