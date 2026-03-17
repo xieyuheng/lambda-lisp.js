@@ -1,8 +1,7 @@
 > back to call-by-value evaluation
 
+add Value postfix to value types
 extract definition/
-
-setup index.ts -- to import as L
 
 rename bind to binding
 rename Values.Lambda to Value.Closure
