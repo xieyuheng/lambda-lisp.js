@@ -33,6 +33,9 @@
 
 (define add (Y add-wrap))
 
+(assert-bisimilar (add zero zero) zero)
+(assert-bisimilar (add zero one) one)
+;; (assert-bisimilar (add one zero) one)
 ;; (assert-bisimilar (add one one) two)
 ;; (assert-bisimilar (add two two) four)
 ;; (assert-bisimilar (add two five) seven)
