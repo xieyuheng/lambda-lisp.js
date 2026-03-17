@@ -61,10 +61,6 @@ export function applyWithDelay(target: Value, arg: Value): Value {
       )
     }
 
-    case "LazyValue": {
-      return applyWithDelay(Values.lazyActive(target), arg)
-    }
-
     case "DelayedApplyValue": {
       const nextTarget = applyWithDelay(target.target, target.arg)
       return applyWithDelay(nextTarget, arg)

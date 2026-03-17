@@ -3,7 +3,7 @@ import { type Exp } from "../exp/index.ts"
 import { type Mod } from "../mod/index.ts"
 import { type Neutral } from "../value/index.ts"
 
-export type Value = NotYetValue | ClosureValue | LazyValue | DelayedApplyValue
+export type Value = NotYetValue | ClosureValue | DelayedApplyValue
 
 export type NotYetValue = {
   kind: "NotYetValue"
@@ -17,14 +17,6 @@ export type ClosureValue = {
   name: string
   ret: Exp
   definedName?: string
-}
-
-export type LazyValue = {
-  kind: "LazyValue"
-  mod: Mod
-  env: Env
-  exp: Exp
-  value?: Value
 }
 
 export type DelayedApplyValue = {
@@ -52,15 +44,6 @@ export function ClosureValue(
     env,
     name,
     ret,
-  }
-}
-
-export function LazyValue(mod: Mod, env: Env, exp: Exp): LazyValue {
-  return {
-    kind: "LazyValue",
-    mod,
-    env,
-    exp,
   }
 }
 

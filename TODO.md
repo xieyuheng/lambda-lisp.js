@@ -1,7 +1,6 @@
 > back to call-by-value evaluation
 
-remove Lazy
-remove DelayedApply
+remove DelayedApplyValue
 remove `expIndirectFreeNames`
 remove freeNames and isRecursive from `Definition`
 

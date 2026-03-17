@@ -16,9 +16,6 @@ const debug = false
 export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
   ctx = ctxDepthAdd1(ctx)
 
-  lhs = Values.lazyActiveDeep(lhs)
-  rhs = Values.lazyActiveDeep(rhs)
-
   if (debug) {
     console.log("[sameInCtx]", ctx.depth, " ", formatValue(lhs))
     console.log("[sameInCtx]", ctx.depth, "=", formatValue(rhs))

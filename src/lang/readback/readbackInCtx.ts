@@ -39,10 +39,6 @@ export function readbackInCtx(ctx: Ctx, value: Value): Exp {
       return Exps.Lambda(freshName, readbackInCtx(ctx, ret))
     }
 
-    case "LazyValue": {
-      return readbackInCtx(ctx, Values.lazyActive(value))
-    }
-
     case "DelayedApplyValue": {
       const head = delayedApplyHead(value)
       if (head.kind === "ClosureValue") {
