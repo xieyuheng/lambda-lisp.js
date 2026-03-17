@@ -1,0 +1,27 @@
+{
+  "name": "@xieyuheng/helpers.js",
+  "version": "0.2.4",
+  "repository": "github:xieyuheng/x-lisp",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    "./*": "./lib/*/index.js"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "node --test src/**/*.test.ts",
+    "format": "prettier src --write"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript": "^5.9.3"
+  }
+}
