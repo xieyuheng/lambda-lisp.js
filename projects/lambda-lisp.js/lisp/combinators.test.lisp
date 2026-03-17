@@ -1,10 +1,4 @@
 (import "combinators.lisp" S K I)
 
-(I)
-(K I)
-(S K I)
-
-(import "combinators.lisp" C B)
-
-(B I I I)
-(C K I I)
+(assert-bisimilar I (I I))
+(assert-bisimilar I (K I I))

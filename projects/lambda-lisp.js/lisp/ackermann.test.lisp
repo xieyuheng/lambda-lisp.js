@@ -4,8 +4,6 @@
 
 (import "ackermann.lisp" ackermann)
 
-ackermann
-
 (assert-bisimilar (ackermann zero zero) one)
 (assert-bisimilar (ackermann one zero) two)
 (assert-bisimilar (ackermann zero one) two)

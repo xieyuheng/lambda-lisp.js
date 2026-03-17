@@ -7,7 +7,3 @@
 (assert-bisimilar (fibonacci three) two)
 (assert-bisimilar (fibonacci four) three)
 (assert-bisimilar (fibonacci five) five)
-
-;; test readback
-
-fibonacci
