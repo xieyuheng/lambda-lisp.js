@@ -2,6 +2,11 @@
 (import "nat-church.lisp" zero one two three four)
 (import "bool.lisp" if true false)
 
+(define (factorial-0 n)
+  (if (zero? n)
+    one
+    (mul n (factorial-0 (sub1 n)))))
+
 (define factorial-wrap
   (lambda (factorial)
     (lambda (n)
@@ -9,8 +14,7 @@
         one
         (mul n (factorial (sub1 n)))))))
 
-(define (factorial-1 n)
-  ((factorial-wrap factorial-1) n))
+(define factorial-1 (factorial-wrap factorial-1))
 
 (assert-bisimilar (factorial-1 zero) one)
 (assert-bisimilar (factorial-1 one) one)
@@ -18,9 +22,7 @@
 (assert-bisimilar (factorial-1 three) (mul three two))
 ;; (assert-bisimilar (factorial-1 four) (mul four (mul three two)))
 
-(define (factorial-2 n)
-  ((factorial-wrap
-    (factorial-wrap factorial-2)) n))
+(define factorial-2 (factorial-wrap (factorial-wrap factorial-2)))
 
 (assert-bisimilar (factorial-2 zero) one)
 (assert-bisimilar (factorial-2 one) one)
@@ -28,10 +30,7 @@
 (assert-bisimilar (factorial-2 three) (mul three two))
 ;; (assert-bisimilar (factorial-2 four) (mul four (mul three two)))
 
-(define (factorial-3 n)
-  ((factorial-wrap
-    (factorial-wrap
-     (factorial-wrap factorial-3))) n))
+(define factorial-3 (factorial-wrap (factorial-wrap (factorial-wrap factorial-3))))
 
 (assert-bisimilar (factorial-3 zero) one)
 (assert-bisimilar (factorial-3 one) one)
@@ -39,6 +38,9 @@
 (assert-bisimilar (factorial-3 three) (mul three two))
 ;; (assert-bisimilar (factorial-3 four) (mul four (mul three two)))
 
+(assert-not-convertible factorial-0 factorial-1)
+(assert-not-convertible factorial-0 factorial-2)
+(assert-not-convertible factorial-0 factorial-3)
 (assert-not-convertible factorial-1 factorial-2)
 (assert-not-convertible factorial-1 factorial-3)
 (assert-not-convertible factorial-2 factorial-3)

@@ -1,4 +1,4 @@
-(import "fixpoint.lisp" Y)
+(import "fixpoint.lisp" Y turing)
 
 (define zero (lambda (base step) base))
 (define (add1 prev) (lambda (base step) (step prev)))
@@ -25,13 +25,16 @@
 (assert-bisimilar (sub1 one) zero)
 (assert-bisimilar (sub1 zero) zero)
 
-;; (define (add-wrap add)
-;;   (lambda (m n)
-;;     (which-Nat m
-;;       n
-;;       (lambda (prev) (add1 (add prev n))))))
+(define (add-wrap add)
+  (lambda (m n)
+    (which-Nat m
+      n
+      (lambda (prev) (add1 (add prev n))))))
+
+;; TODO define `add` by `turing` and `-half` is ok, but by `Y` is not ok, why?
 
 ;; (define add (Y add-wrap))
+(define add (turing add-wrap))
 
 (define (add-half self)
   (lambda (m n)
@@ -39,15 +42,15 @@
       n
       (lambda (prev) (add1 (self self prev n))))))
 
-(define add (add-half add-half))
+;; (define add (add-half add-half))
 
 (assert-bisimilar (add zero zero) zero)
 (assert-bisimilar (add zero one) one)
 (assert-bisimilar (add one zero) one)
-;; (assert-bisimilar (add one one) two)
-;; (assert-bisimilar (add two two) four)
-;; (assert-bisimilar (add two five) seven)
-;; (assert-bisimilar (add three three) six)
+(assert-bisimilar (add one one) two)
+(assert-bisimilar (add two two) four)
+(assert-bisimilar (add two five) seven)
+(assert-bisimilar (add three three) six)
 
 (define (mul-wrap mul)
   (lambda (m n)
@@ -55,11 +58,18 @@
       zero
       (lambda (prev) (add n (mul prev n))))))
 
-(define mul (Y mul-wrap))
+;; (define mul (Y mul-wrap))
+(define mul (turing mul-wrap))
 
-;; (assert-bisimilar (mul two five) ten)
-;; (assert-bisimilar (mul three three) nine)
-;; (assert-bisimilar (add two two) (mul two two))
+(assert-bisimilar (mul two five) ten)
+(assert-bisimilar (mul three three) nine)
+(assert-bisimilar (add two two) (mul two two))
+
+(assert-bisimilar
+  (mul two (mul two two))
+  (mul (mul two two) two))
+
+;; TODO too big
 
 ;; (assert-bisimilar
 ;;   (mul two (mul two (mul two two)))

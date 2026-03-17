@@ -1,7 +1,7 @@
 (import "nat-church.lisp" zero? add mul sub1)
 (import "nat-church.lisp" zero one two three four five)
 (import "bool.lisp" if true false)
-(import "fixpoint.lisp" Y)
+(import "fixpoint.lisp" Y turing)
 
 (import "factorial-wrap.lisp" factorial-wrap)
 
@@ -11,6 +11,14 @@
 ;; (assert-bisimilar ((Y factorial-wrap) three) (mul three two))
 ;; (assert-bisimilar ((Y factorial-wrap) four) (mul four (mul three two)))
 ;; (assert-bisimilar ((Y factorial-wrap) five) (mul five (mul four (mul three two))))
+
+;; TODO turing is ok, but Y is not ok.
+(assert-bisimilar ((turing factorial-wrap) zero) one)
+(assert-bisimilar ((turing factorial-wrap) one) one)
+(assert-bisimilar ((turing factorial-wrap) two) two)
+(assert-bisimilar ((turing factorial-wrap) three) (mul three two))
+;; (assert-bisimilar ((turing factorial-wrap) four) (mul four (mul three two)))
+;; (assert-bisimilar ((turing factorial-wrap) five) (mul five (mul four (mul three two))))
 
 (import "factorial-wrap.lisp" factorial)
 

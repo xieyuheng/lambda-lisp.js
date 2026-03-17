@@ -2,6 +2,16 @@
 (import "nat-church.lisp" zero one two three four five)
 
 (import "factorial.lisp" factorial)
+(import "factorial-half.lisp" factorial-half)
+
+(assert-bisimilar factorial (factorial-half factorial-half))
+
+(import "fixpoint.lisp" Y turing)
+(import "factorial-wrap.lisp" factorial-wrap)
+
+;; TODO
+;; (assert-bisimilar factorial (Y factorial-wrap))
+;; (assert-bisimilar factorial (turing factorial-wrap))
 
 (assert-bisimilar (factorial zero) one)
 (assert-bisimilar (factorial one) one)
