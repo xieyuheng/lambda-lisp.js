@@ -1,8 +1,3 @@
-> back to call-by-value evaluation
-
-remove freeNames and isRecursive from `Definition`
-remove `expIndirectFreeNames`
-
 # bug
 
 [bug] `(assert-equal fibonacci fibonacci/1)` fail

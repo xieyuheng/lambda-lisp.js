@@ -6,7 +6,5 @@ export type Definition = {
   mod: Mod
   name: string
   exp: Exp
-  freeNames?: Set<string>
   value?: Value
-  isRecursive?: boolean
 }
