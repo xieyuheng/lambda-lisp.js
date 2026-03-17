@@ -1,5 +1,5 @@
 import { formatExp } from "../format/index.ts"
-import { lambdaIsDefined, type Neutral, type Value } from "../value/index.ts"
+import { type Neutral, type Value } from "../value/index.ts"
 
 export function formatValue(value: Value): string {
   switch (value.kind) {
@@ -8,10 +8,6 @@ export function formatValue(value: Value): string {
     }
 
     case "ClosureValue": {
-      if (lambdaIsDefined(value)) {
-        return value.definedName
-      }
-
       return `(lambda (${value.name}) ${formatExp(value.ret)})`
     }
   }

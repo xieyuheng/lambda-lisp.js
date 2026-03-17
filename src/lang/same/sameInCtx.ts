@@ -3,12 +3,7 @@ import { apply } from "../evaluate/index.ts"
 import { formatValue } from "../format/index.ts"
 import * as Neutrals from "../value/index.ts"
 import * as Values from "../value/index.ts"
-import {
-  lambdaIsDefined,
-  lambdaSameDefined,
-  type Neutral,
-  type Value,
-} from "../value/index.ts"
+import { type Neutral, type Value } from "../value/index.ts"
 import { ctxBindName, ctxDepthAdd1, type Ctx } from "./Ctx.ts"
 
 const debug = false
@@ -26,23 +21,22 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
   }
 
   if (lhs.kind === "ClosureValue" && rhs.kind === "ClosureValue") {
-    if (lambdaSameDefined(lhs, rhs)) {
-      return true
-    }
-
-    if (lambdaIsDefined(lhs) || lambdaIsDefined(rhs)) {
-      return false
-    }
+    // if (lambdaSameDefined(lhs, rhs)) {
+    //   return true
+    // }
+    // if (lambdaIsDefined(lhs) || lambdaIsDefined(rhs)) {
+    //   return false
+    // }
   }
 
-  if (lhs.kind === "ClosureValue" && !lambdaIsDefined(lhs)) {
+  if (lhs.kind === "ClosureValue") {
     const freshName = freshen(ctx.boundNames, lhs.name)
     ctx = ctxBindName(ctx, freshName)
     const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, apply(lhs, arg), apply(rhs, arg))
   }
 
-  if (rhs.kind === "ClosureValue" && !lambdaIsDefined(rhs)) {
+  if (rhs.kind === "ClosureValue") {
     const freshName = freshen(ctx.boundNames, rhs.name)
     ctx = ctxBindName(ctx, freshName)
     const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))

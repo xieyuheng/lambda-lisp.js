@@ -4,14 +4,8 @@ import { formatValue } from "../format/index.ts"
 import { same } from "../same/index.ts"
 import * as Neutrals from "../value/index.ts"
 import * as Values from "../value/index.ts"
-import { lambdaIsDefined, type Neutral, type Value } from "../value/index.ts"
-import {
-  ctxBindName,
-  ctxBlazeOccurred,
-  ctxBlazeTrail,
-  ctxDepthAdd1,
-  type Ctx,
-} from "./Ctx.ts"
+import { type Neutral, type Value } from "../value/index.ts"
+import { ctxBindName, ctxDepthAdd1, type Ctx } from "./Ctx.ts"
 
 const debug = false
 
@@ -31,13 +25,13 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
   }
 
   if (lhs.kind === "ClosureValue") {
-    if (lambdaIsDefined(lhs)) {
-      if (ctxBlazeOccurred(ctx, lhs, rhs)) {
-        return true
-      } else {
-        ctx = ctxBlazeTrail(ctx, lhs, rhs)
-      }
-    }
+    // if (lambdaIsDefined(lhs)) {
+    //   if (ctxBlazeOccurred(ctx, lhs, rhs)) {
+    //     return true
+    //   } else {
+    //     ctx = ctxBlazeTrail(ctx, lhs, rhs)
+    //   }
+    // }
 
     const freshName = freshen(ctx.boundNames, lhs.name)
     ctx = ctxBindName(ctx, freshName)
@@ -47,13 +41,13 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
   }
 
   if (rhs.kind === "ClosureValue") {
-    if (lambdaIsDefined(rhs)) {
-      if (ctxBlazeOccurred(ctx, rhs, lhs)) {
-        return true
-      } else {
-        ctx = ctxBlazeTrail(ctx, rhs, lhs)
-      }
-    }
+    // if (lambdaIsDefined(rhs)) {
+    //   if (ctxBlazeOccurred(ctx, rhs, lhs)) {
+    //     return true
+    //   } else {
+    //     ctx = ctxBlazeTrail(ctx, rhs, lhs)
+    //   }
+    // }
 
     const freshName = freshen(ctx.boundNames, rhs.name)
     ctx = ctxBindName(ctx, freshName)

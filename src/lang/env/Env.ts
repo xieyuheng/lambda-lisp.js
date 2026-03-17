@@ -10,7 +10,7 @@ export function envNames(env: Env): Array<string> {
   return Array.from(env.keys())
 }
 
-export function envFindValue(env: Env, name: string): undefined | Value {
+export function envLookup(env: Env, name: string): undefined | Value {
   return env.get(name)
 }
 

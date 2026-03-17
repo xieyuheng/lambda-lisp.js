@@ -4,13 +4,8 @@ import * as Exps from "../exp/index.ts"
 import { type Exp } from "../exp/index.ts"
 import * as Neutrals from "../value/index.ts"
 import * as Values from "../value/index.ts"
-import { lambdaIsDefined, type Neutral, type Value } from "../value/index.ts"
-import {
-  ctxBindName,
-  ctxBlazeOccurred,
-  ctxBlazeTrail,
-  type Ctx,
-} from "./Ctx.ts"
+import { type Neutral, type Value } from "../value/index.ts"
+import { ctxBindName, type Ctx } from "./Ctx.ts"
 
 export function readbackInCtx(ctx: Ctx, value: Value): Exp {
   switch (value.kind) {
@@ -19,13 +14,14 @@ export function readbackInCtx(ctx: Ctx, value: Value): Exp {
     }
 
     case "ClosureValue": {
-      if (lambdaIsDefined(value)) {
-        if (ctxBlazeOccurred(ctx, value)) {
-          return Exps.Var(value.definedName)
-        } else {
-          ctx = ctxBlazeTrail(ctx, value)
-        }
-      }
+      // if (
+      //   lambdaIsDefined(value)) {
+      //   if (ctxBlazeOccurred(ctx, value)) {
+      //     return Exps.Var(value.definedName)
+      //   } else {
+      //     ctx = ctxBlazeTrail(ctx, value)
+      //   }
+      // }
 
       const freshName = freshen(ctx.boundNames, value.name)
       ctx = ctxBindName(ctx, freshName)

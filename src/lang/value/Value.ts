@@ -23,7 +23,6 @@ export type ClosureValue = {
   env: Env
   name: string
   ret: Exp
-  definedName?: string
 }
 
 export function ClosureValue(
@@ -39,19 +38,4 @@ export function ClosureValue(
     name,
     ret,
   }
-}
-
-export type DefinedLambda = ClosureValue & { definedName: string }
-
-export function lambdaIsDefined(lambda: ClosureValue): lambda is DefinedLambda {
-  return lambda.definedName !== undefined
-}
-
-export function lambdaSameDefined(x: ClosureValue, y: ClosureValue): boolean {
-  return (
-    lambdaIsDefined(x) &&
-    lambdaIsDefined(y) &&
-    x.definedName === y.definedName &&
-    x.mod === y.mod
-  )
 }

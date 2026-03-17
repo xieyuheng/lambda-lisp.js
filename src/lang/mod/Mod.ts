@@ -1,8 +1,5 @@
 import type { Definition } from "../definition/index.ts"
-import { emptyEnv } from "../env/Env.ts"
-import { evaluate } from "../evaluate/evaluate.ts"
 import { type Stmt } from "../stmt/index.ts"
-import { type Value } from "../value/index.ts"
 
 export type Mod = {
   url: URL
@@ -29,31 +26,6 @@ export function modDefine(
 
 export function modFind(mod: Mod, name: string): Definition | undefined {
   return mod.definitions.get(name)
-}
-
-export function modFindValue(mod: Mod, name: string): Value | undefined {
-  const definition = modFind(mod, name)
-  if (definition === undefined) return undefined
-
-  if (definition.value) return definition.value
-
-  const value = evaluate(definition.mod, emptyEnv(), definition.exp)
-
-  // TODO Uncomment the following,
-  // will only blaze recursive function,
-  // but it will be to slow for `equalInCtx`.
-  // I do not fully understand it yet.
-
-  if (
-    // def.isRecursive &&
-    value.kind === "ClosureValue" &&
-    value.definedName === undefined
-  ) {
-    value.definedName = definition.name
-  }
-
-  definition.value = value
-  return value
 }
 
 export function modResolve(mod: Mod, href: string): URL {
