@@ -24,11 +24,11 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     console.log("[sameInCtx]", ctx.depth, "=", formatValue(rhs))
   }
 
-  if (lhs.kind === "NotYet" && rhs.kind === "NotYet") {
+  if (lhs.kind === "NotYetValue" && rhs.kind === "NotYetValue") {
     return sameNeutralInCtx(ctx, lhs.neutral, rhs.neutral)
   }
 
-  if (lhs.kind === "Lambda" && rhs.kind === "Lambda") {
+  if (lhs.kind === "ClosureValue" && rhs.kind === "ClosureValue") {
     if (lambdaSameDefined(lhs, rhs)) {
       return true
     }
@@ -38,21 +38,21 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     }
   }
 
-  if (lhs.kind === "Lambda" && !lambdaIsDefined(lhs)) {
+  if (lhs.kind === "ClosureValue" && !lambdaIsDefined(lhs)) {
     const freshName = freshen(ctx.boundNames, lhs.name)
     ctx = ctxBindName(ctx, freshName)
     const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 
-  if (rhs.kind === "Lambda" && !lambdaIsDefined(rhs)) {
+  if (rhs.kind === "ClosureValue" && !lambdaIsDefined(rhs)) {
     const freshName = freshen(ctx.boundNames, rhs.name)
     ctx = ctxBindName(ctx, freshName)
     const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 
-  if (lhs.kind === "DelayedApply" && rhs.kind === "DelayedApply") {
+  if (lhs.kind === "DelayedApplyValue" && rhs.kind === "DelayedApplyValue") {
     if (
       sameInCtx(ctx, lhs.target, rhs.target) &&
       sameInCtx(ctx, lhs.arg, rhs.arg)
@@ -61,14 +61,14 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     }
   }
 
-  if (lhs.kind === "DelayedApply") {
-    if (!(lhs.target.kind === "Lambda" && lambdaIsDefined(lhs.target))) {
+  if (lhs.kind === "DelayedApplyValue") {
+    if (!(lhs.target.kind === "ClosureValue" && lambdaIsDefined(lhs.target))) {
       return sameInCtx(ctx, applyWithDelay(lhs.target, lhs.arg), rhs)
     }
   }
 
-  if (rhs.kind === "DelayedApply") {
-    if (!(rhs.target.kind === "Lambda" && lambdaIsDefined(rhs.target))) {
+  if (rhs.kind === "DelayedApplyValue") {
+    if (!(rhs.target.kind === "ClosureValue" && lambdaIsDefined(rhs.target))) {
       return sameInCtx(ctx, lhs, applyWithDelay(rhs.target, rhs.arg))
     }
   }
@@ -77,11 +77,11 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
 }
 
 function sameNeutralInCtx(ctx: Ctx, lhs: Neutral, rhs: Neutral): boolean {
-  if (lhs.kind === "Var" && rhs.kind === "Var") {
+  if (lhs.kind === "VarNeutral" && rhs.kind === "VarNeutral") {
     return rhs.name === lhs.name
   }
 
-  if (lhs.kind === "Apply" && rhs.kind === "Apply") {
+  if (lhs.kind === "ApplyNeutral" && rhs.kind === "ApplyNeutral") {
     return (
       sameNeutralInCtx(ctx, lhs.target, rhs.target) &&
       sameInCtx(ctx, lhs.arg, rhs.arg)

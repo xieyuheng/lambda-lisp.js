@@ -55,7 +55,7 @@ export function modFindValue(mod: Mod, name: string): Value | undefined {
 
   if (
     // def.isRecursive &&
-    value.kind === "Lambda" &&
+    value.kind === "ClosureValue" &&
     value.definedName === undefined
   ) {
     value.definedName = definition.name

@@ -8,11 +8,11 @@ import {
 
 export function formatValue(value: Value): string {
   switch (value.kind) {
-    case "NotYet": {
+    case "NotYetValue": {
       return formatNeutral(value.neutral)
     }
 
-    case "Lambda": {
+    case "ClosureValue": {
       if (lambdaIsDefined(value)) {
         return value.definedName
       }
@@ -20,11 +20,11 @@ export function formatValue(value: Value): string {
       return `(lambda (${value.name}) ${formatExp(value.ret)})`
     }
 
-    case "Lazy": {
+    case "LazyValue": {
       return formatValue(lazyActive(value))
     }
 
-    case "DelayedApply": {
+    case "DelayedApplyValue": {
       const target = formatValue(value.target)
       const arg = formatValue(value.arg)
       return `(${target} ${arg})`
@@ -34,11 +34,11 @@ export function formatValue(value: Value): string {
 
 export function formatNeutral(neutral: Neutral): string {
   switch (neutral.kind) {
-    case "Var": {
+    case "VarNeutral": {
       return neutral.name
     }
 
-    case "Apply": {
+    case "ApplyNeutral": {
       const target = formatNeutral(neutral.target)
       const arg = formatValue(neutral.arg)
       return `(${target} ${arg})`

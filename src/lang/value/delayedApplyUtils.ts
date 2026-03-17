@@ -1,7 +1,7 @@
 import { DelayedApplyValue, type Value } from "./Value.ts"
 
 export function delayedApplyHead(delayedApply: DelayedApplyValue): Value {
-  if (delayedApply.target.kind === "DelayedApply") {
+  if (delayedApply.target.kind === "DelayedApplyValue") {
     return delayedApplyHead(delayedApply.target)
   }
 

@@ -29,11 +29,11 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
 
   if (same(lhs, rhs)) return true
 
-  if (lhs.kind === "NotYet" && rhs.kind === "NotYet") {
+  if (lhs.kind === "NotYetValue" && rhs.kind === "NotYetValue") {
     return equalNeutralInCtx(ctx, lhs.neutral, rhs.neutral)
   }
 
-  if (lhs.kind === "Lambda") {
+  if (lhs.kind === "ClosureValue") {
     if (lambdaIsDefined(lhs)) {
       if (ctxBlazeOccurred(ctx, lhs, rhs)) {
         return true
@@ -49,7 +49,7 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     return equalInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 
-  if (rhs.kind === "Lambda") {
+  if (rhs.kind === "ClosureValue") {
     if (lambdaIsDefined(rhs)) {
       if (ctxBlazeOccurred(ctx, rhs, lhs)) {
         return true
@@ -65,7 +65,7 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     return equalInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 
-  if (lhs.kind === "DelayedApply" && rhs.kind === "DelayedApply") {
+  if (lhs.kind === "DelayedApplyValue" && rhs.kind === "DelayedApplyValue") {
     if (
       equalInCtx(ctx, lhs.target, rhs.target) &&
       equalInCtx(ctx, lhs.arg, rhs.arg)
@@ -86,11 +86,11 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
     // }
   }
 
-  if (lhs.kind === "DelayedApply") {
+  if (lhs.kind === "DelayedApplyValue") {
     return equalInCtx(ctx, applyWithDelay(lhs.target, lhs.arg), rhs)
   }
 
-  if (rhs.kind === "DelayedApply") {
+  if (rhs.kind === "DelayedApplyValue") {
     return equalInCtx(ctx, lhs, applyWithDelay(rhs.target, rhs.arg))
   }
 
@@ -98,11 +98,11 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
 }
 
 function equalNeutralInCtx(ctx: Ctx, lhs: Neutral, rhs: Neutral): boolean {
-  if (lhs.kind === "Var" && rhs.kind === "Var") {
+  if (lhs.kind === "VarNeutral" && rhs.kind === "VarNeutral") {
     return rhs.name === lhs.name
   }
 
-  if (lhs.kind === "Apply" && rhs.kind === "Apply") {
+  if (lhs.kind === "ApplyNeutral" && rhs.kind === "ApplyNeutral") {
     return (
       equalNeutralInCtx(ctx, lhs.target, rhs.target) &&
       equalInCtx(ctx, lhs.arg, rhs.arg)

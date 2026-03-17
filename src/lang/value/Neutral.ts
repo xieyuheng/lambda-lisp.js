@@ -1,19 +1,19 @@
 import { type Value } from "../value/index.ts"
 
 export type Neutral = VarNeutral | ApplyNeutral
-export type VarNeutral = { kind: "Var"; name: string }
-export type ApplyNeutral = { kind: "Apply"; target: Neutral; arg: Value }
+export type VarNeutral = { kind: "VarNeutral"; name: string }
+export type ApplyNeutral = { kind: "ApplyNeutral"; target: Neutral; arg: Value }
 
 export function VarNeutral(name: string): VarNeutral {
   return {
-    kind: "Var",
+    kind: "VarNeutral",
     name,
   }
 }
 
 export function ApplyNeutral(target: Neutral, arg: Value): ApplyNeutral {
   return {
-    kind: "Apply",
+    kind: "ApplyNeutral",
     target,
     arg,
   }

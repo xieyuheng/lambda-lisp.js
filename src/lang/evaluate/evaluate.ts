@@ -6,7 +6,7 @@ import { applyWithDelay, evaluateWithDelay } from "./evaluateWithDelay.ts"
 
 export function apply(target: Value, arg: Value): Value {
   let result = applyWithDelay(target, arg)
-  while (result.kind === "DelayedApply") {
+  while (result.kind === "DelayedApplyValue") {
     result = apply(result.target, result.arg)
   }
 
@@ -15,7 +15,7 @@ export function apply(target: Value, arg: Value): Value {
 
 export function evaluate(mod: Mod, env: Env, exp: Exp): Value {
   const value = evaluateWithDelay(mod, env, exp)
-  if (value.kind === "DelayedApply") {
+  if (value.kind === "DelayedApplyValue") {
     return apply(value.target, value.arg)
   }
 

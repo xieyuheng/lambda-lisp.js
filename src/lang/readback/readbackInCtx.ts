@@ -19,11 +19,11 @@ import {
 
 export function readbackInCtx(ctx: Ctx, value: Value): Exp {
   switch (value.kind) {
-    case "NotYet": {
+    case "NotYetValue": {
       return readbackNeutralInCtx(ctx, value.neutral)
     }
 
-    case "Lambda": {
+    case "ClosureValue": {
       if (lambdaIsDefined(value)) {
         if (ctxBlazeOccurred(ctx, value)) {
           return Exps.Var(value.definedName)
@@ -39,13 +39,13 @@ export function readbackInCtx(ctx: Ctx, value: Value): Exp {
       return Exps.Lambda(freshName, readbackInCtx(ctx, ret))
     }
 
-    case "Lazy": {
+    case "LazyValue": {
       return readbackInCtx(ctx, Values.lazyActive(value))
     }
 
-    case "DelayedApply": {
+    case "DelayedApplyValue": {
       const head = delayedApplyHead(value)
-      if (head.kind === "Lambda") {
+      if (head.kind === "ClosureValue") {
         if (lambdaIsDefined(head)) {
           if (ctxBlazeOccurred(ctx, head)) {
             return Exps.Apply(
@@ -63,11 +63,11 @@ export function readbackInCtx(ctx: Ctx, value: Value): Exp {
 
 function readbackNeutralInCtx(ctx: Ctx, neutral: Neutral): Exp {
   switch (neutral.kind) {
-    case "Var": {
+    case "VarNeutral": {
       return Exps.Var(neutral.name)
     }
 
-    case "Apply": {
+    case "ApplyNeutral": {
       return Exps.Apply(
         readbackNeutralInCtx(ctx, neutral.target),
         readbackInCtx(ctx, neutral.arg),

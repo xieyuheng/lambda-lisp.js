@@ -22,7 +22,7 @@ export function evaluateWithDelay(mod: Mod, env: Env, exp: Exp): Value {
     }
 
     case "Lambda": {
-      return Values.LambdaValue(mod, env, exp.name, exp.ret)
+      return Values.ClosureValue(mod, env, exp.name, exp.ret)
     }
 
     case "Apply": {
@@ -49,11 +49,11 @@ export function evaluateWithDelay(mod: Mod, env: Env, exp: Exp): Value {
 
 export function applyWithDelay(target: Value, arg: Value): Value {
   switch (target.kind) {
-    case "NotYet": {
+    case "NotYetValue": {
       return Values.NotYetValue(Neutrals.ApplyNeutral(target.neutral, arg))
     }
 
-    case "Lambda": {
+    case "ClosureValue": {
       return evaluateWithDelay(
         target.mod,
         envUpdate(target.env, target.name, arg),
@@ -61,11 +61,11 @@ export function applyWithDelay(target: Value, arg: Value): Value {
       )
     }
 
-    case "Lazy": {
+    case "LazyValue": {
       return applyWithDelay(Values.lazyActive(target), arg)
     }
 
-    case "DelayedApply": {
+    case "DelayedApplyValue": {
       const nextTarget = applyWithDelay(target.target, target.arg)
       return applyWithDelay(nextTarget, arg)
     }
