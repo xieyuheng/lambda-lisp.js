@@ -25,10 +25,8 @@
 
 (import "nat-even-odd.lisp" direct-even? direct-odd?)
 
-;; TODO bug
-
-;; (assert-bisimilar even? direct-even?)
-;; (assert-bisimilar odd? direct-odd?)
+(assert-bisimilar even? direct-even?)
+(assert-bisimilar odd? direct-odd?)
 
 (assert-bisimilar
   even?
