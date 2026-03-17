@@ -4,7 +4,7 @@ import { type Exp } from "../exp/index.ts"
 import { type Stmt } from "../stmt/index.ts"
 import { type Value } from "../value/index.ts"
 
-export type Def = {
+export type Definition = {
   mod: Mod
   name: string
   exp: Exp
@@ -15,7 +15,7 @@ export type Def = {
 
 export type Mod = {
   url: URL
-  defs: Map<string, Def>
+  definitions: Map<string, Definition>
   stmts: Array<Stmt>
   isFinished?: boolean
 }
@@ -23,26 +23,30 @@ export type Mod = {
 export function createMod(url: URL): Mod {
   return {
     url,
-    defs: new Map(),
+    definitions: new Map(),
     stmts: [],
   }
 }
 
-export function modDefine(mod: Mod, name: string, def: Def): void {
-  mod.defs.set(name, def)
+export function modDefine(
+  mod: Mod,
+  name: string,
+  definition: Definition,
+): void {
+  mod.definitions.set(name, definition)
 }
 
-export function modFind(mod: Mod, name: string): Def | undefined {
-  return mod.defs.get(name)
+export function modFind(mod: Mod, name: string): Definition | undefined {
+  return mod.definitions.get(name)
 }
 
 export function modFindValue(mod: Mod, name: string): Value | undefined {
-  const def = modFind(mod, name)
-  if (def === undefined) return undefined
+  const definition = modFind(mod, name)
+  if (definition === undefined) return undefined
 
-  if (def.value) return def.value
+  if (definition.value) return definition.value
 
-  const value = evaluate(def.mod, emptyEnv(), def.exp)
+  const value = evaluate(definition.mod, emptyEnv(), definition.exp)
 
   // TODO Uncomment the following,
   // will only blaze recursive function,
@@ -54,10 +58,10 @@ export function modFindValue(mod: Mod, name: string): Value | undefined {
     value.kind === "Lambda" &&
     value.definedName === undefined
   ) {
-    value.definedName = def.name
+    value.definedName = definition.name
   }
 
-  def.value = value
+  definition.value = value
   return value
 }
 
@@ -65,9 +69,9 @@ export function modResolve(mod: Mod, href: string): URL {
   return new URL(href, mod.url)
 }
 
-export function modOwnDefs(mod: Mod): Map<string, Def> {
+export function modOwnDefinitions(mod: Mod): Map<string, Definition> {
   const ownDefs = new Map()
-  for (const [name, def] of mod.defs) {
+  for (const [name, def] of mod.definitions) {
     if (def.mod.url.href === mod.url.href) {
       ownDefs.set(name, def)
     }

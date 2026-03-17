@@ -1,12 +1,12 @@
 import assert from "node:assert"
 import { setPop } from "../../utils/set/setPop.ts"
 import type { Mod } from "../mod/index.ts"
-import { modOwnDefs } from "../mod/index.ts"
+import { modOwnDefinitions } from "../mod/index.ts"
 import type { Exp } from "./Exp.ts"
 import { expFreeNames } from "./expFreeNames.ts"
 
 export function expIndirectFreeNames(mod: Mod, exp: Exp): Set<string> {
-  const ownDefs = modOwnDefs(mod)
+  const ownDefs = modOwnDefinitions(mod)
   const remainingNames = expFreeNames(new Set(), exp)
   const collectedNames = new Set<string>()
 

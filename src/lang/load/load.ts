@@ -3,7 +3,12 @@ import fs from "node:fs"
 import { expFreeNames } from "../exp/expFreeNames.ts"
 import { expIndirectFreeNames } from "../exp/index.ts"
 import { formatExp } from "../format/formatExp.ts"
-import { createMod, modFind, modOwnDefs, type Mod } from "../mod/index.ts"
+import {
+  createMod,
+  modFind,
+  modOwnDefinitions,
+  type Mod,
+} from "../mod/index.ts"
 import { parseStmts } from "../parse/index.ts"
 import { globalLoadedMods } from "./globalLoadedMods.ts"
 import { handleDefine } from "./handleDefine.ts"
@@ -37,11 +42,11 @@ async function run(mod: Mod): Promise<void> {
 }
 
 function postprocess(mod: Mod): void {
-  for (const def of modOwnDefs(mod).values()) {
+  for (const def of modOwnDefinitions(mod).values()) {
     def.freeNames = expFreeNames(new Set(), def.exp)
   }
 
-  for (const def of modOwnDefs(mod).values()) {
+  for (const def of modOwnDefinitions(mod).values()) {
     assert(def.freeNames)
     for (const name of def.freeNames) {
       if (!modFind(mod, name)) {
@@ -54,7 +59,7 @@ function postprocess(mod: Mod): void {
     }
   }
 
-  for (const def of modOwnDefs(mod).values()) {
+  for (const def of modOwnDefinitions(mod).values()) {
     if (expIndirectFreeNames(mod, def.exp).has(def.name)) {
       def.isRecursive = true
     }

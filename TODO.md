@@ -1,7 +1,16 @@
 > back to call-by-value evaluation
 
+extract definition/
+
+setup index.ts -- to import as L
+
+rename bind to binding
+rename Values.Lambda to Value.Closure
+
 remove Lazy
 remove DelayedApply
+remove `expIndirectFreeNames`
+remove freeNames and isRecursive from `Definition`
 
 # bug
 
