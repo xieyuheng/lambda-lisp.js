@@ -68,5 +68,5 @@
 (assert-bisimilar fibonacci-1 fibonacci-3)
 
 ;; TODO fail:
-
+;; infinite loop (without stack overflow)
 ;; (assert-bisimilar fibonacci-2 fibonacci-3)

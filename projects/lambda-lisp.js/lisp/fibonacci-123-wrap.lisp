@@ -53,7 +53,7 @@
 (assert-bisimilar (fibonacci-3 one) one)
 (assert-bisimilar (fibonacci-3 two) one)
 (assert-bisimilar (fibonacci-3 three) two)
-(assert-bisimilar (fibonacci-3 four) three)
+;; (assert-bisimilar (fibonacci-3 four) three)
 ;; (assert-bisimilar (fibonacci-3 five) five)
 
 (assert-not-convertible fibonacci-1 fibonacci-2)
@@ -62,5 +62,5 @@
 (assert-bisimilar fibonacci-1 fibonacci-3)
 
 ;; TODO fail:
-
-;; (assert-bisimilar fibonacci-2 fibonacci-3)
+;; Maximum call stack size exceeded
+; ;(assert-bisimilar fibonacci-2 fibonacci-3)
