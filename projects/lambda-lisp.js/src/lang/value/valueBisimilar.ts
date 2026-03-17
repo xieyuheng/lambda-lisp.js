@@ -14,6 +14,12 @@ export function valueBisimilar(
     return true
   }
 
+  if (lhs.kind === "NeutralValue" && rhs.kind === "NeutralValue") {
+    if (neutralBisimilar(trail, lhs.neutral, rhs.neutral)) {
+      return true
+    }
+  }
+
   trail = [...trail, [lhs, rhs]]
   trail = [...trail, [rhs, lhs]]
 
@@ -25,27 +31,23 @@ export function valueBisimilar(
 
   if (
     lhs.kind === "NeutralValue" &&
-    isConstantApplication(lhs.neutral) &&
+    isConstantApply(lhs.neutral) &&
     rhs.kind === "NeutralValue" &&
-    isConstantApplication(rhs.neutral)
+    isConstantApply(rhs.neutral)
   ) {
     return valueBisimilar(
       trail,
-      reduceConstantApplication(lhs.neutral),
-      reduceConstantApplication(rhs.neutral),
+      reduceConstantApply(lhs.neutral),
+      reduceConstantApply(rhs.neutral),
     )
   }
 
-  if (lhs.kind === "NeutralValue" && isConstantApplication(lhs.neutral)) {
-    return valueBisimilar(trail, reduceConstantApplication(lhs.neutral), rhs)
+  if (lhs.kind === "NeutralValue" && isConstantApply(lhs.neutral)) {
+    return valueBisimilar(trail, reduceConstantApply(lhs.neutral), rhs)
   }
 
-  if (rhs.kind === "NeutralValue" && isConstantApplication(rhs.neutral)) {
-    return valueBisimilar(trail, lhs, reduceConstantApplication(rhs.neutral))
-  }
-
-  if (lhs.kind === "NeutralValue" && rhs.kind === "NeutralValue") {
-    return neutralBisimilar(trail, lhs.neutral, rhs.neutral)
+  if (rhs.kind === "NeutralValue" && isConstantApply(rhs.neutral)) {
+    return valueBisimilar(trail, lhs, reduceConstantApply(rhs.neutral))
   }
 
   return false
@@ -56,6 +58,10 @@ function neutralBisimilar(
   lhs: L.Neutral,
   rhs: L.Neutral,
 ): boolean {
+  if (trailLoopOccurred(trail, L.NeutralValue(lhs), L.NeutralValue(rhs))) {
+    return true
+  }
+
   if (lhs.kind === "VarNeutral" && rhs.kind === "VarNeutral") {
     return rhs.name === lhs.name
   }
@@ -74,26 +80,26 @@ function neutralBisimilar(
   return false
 }
 
-function isConstantApplication(neutral: L.Neutral): boolean {
+function isConstantApply(neutral: L.Neutral): boolean {
   if (neutral.kind === "ConstantNeutral") {
     return true
   }
 
   if (neutral.kind === "ApplyNeutral") {
-    return isConstantApplication(neutral.target)
+    return isConstantApply(neutral.target)
   }
 
   return false
 }
 
-function reduceConstantApplication(neutral: L.Neutral): L.Value {
+function reduceConstantApply(neutral: L.Neutral): L.Value {
   if (neutral.kind === "ConstantNeutral") {
     return L.definitionMeaning(neutral.definition)
   }
 
   if (neutral.kind === "ApplyNeutral") {
-    return L.apply(reduceConstantApplication(neutral.target), neutral.arg)
+    return L.apply(reduceConstantApply(neutral.target), neutral.arg)
   }
 
-  throw new Error("[reduceConstantApplication] unhandled neutral")
+  throw new Error("[reduceConstantApply] unhandled neutral")
 }

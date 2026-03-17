@@ -18,3 +18,12 @@ export function trailLoopOccurred(
 
   return false
 }
+
+export function formatTrail(trail: Trail): string {
+  let s = ``
+  for (const entry of trail) {
+    s += `${L.formatValue(entry[0])} = ${L.formatValue(entry[1])}\n`
+  }
+
+  return s
+}
