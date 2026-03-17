@@ -1,6 +1,5 @@
 # value
 
-`valueConvertible`
 `valueBisimilar`
 
 # bug
