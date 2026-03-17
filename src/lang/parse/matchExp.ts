@@ -1,6 +1,6 @@
 import * as X from "@xieyuheng/x-data.js"
 import * as Exps from "../exp/index.ts"
-import { bindsFromArray, type Bind, type Exp } from "../exp/index.ts"
+import { bindingsFromArray, type Binding, type Exp } from "../exp/index.ts"
 
 const expMatcher: X.Matcher<Exp> = X.matcherChoice<Exp>([
   X.matcher("`(lambda ,names ,exp)", ({ names, exp }) =>
@@ -9,9 +9,9 @@ const expMatcher: X.Matcher<Exp> = X.matcherChoice<Exp>([
       .reduceRight((fn, name) => Exps.Lambda(name, fn), matchExp(exp)),
   ),
 
-  X.matcher("`(let ,binds ,body)", ({ binds, body }) =>
+  X.matcher("`(let ,bindings ,body)", ({ bindings, body }) =>
     Exps.Let(
-      bindsFromArray(X.dataToArray(binds).map(matchBind)),
+      bindingsFromArray(X.dataToArray(bindings).map(matchBind)),
       matchExp(body),
     ),
   ),
@@ -29,7 +29,7 @@ export function matchExp(data: X.Data): Exp {
   return X.match(expMatcher, data)
 }
 
-export function matchBind(data: X.Data): Bind {
+export function matchBind(data: X.Data): Binding {
   return X.match(
     X.matcher("`(,name ,exp)", ({ name, exp }) => ({
       name: X.symbolToString(name),

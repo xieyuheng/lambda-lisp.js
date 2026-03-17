@@ -1,7 +1,5 @@
 > back to call-by-value evaluation
 
-rename bind to binding
-
 remove Lazy
 remove DelayedApply
 remove `expIndirectFreeNames`

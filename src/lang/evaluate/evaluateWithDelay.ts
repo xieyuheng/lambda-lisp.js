@@ -1,5 +1,5 @@
 import { envFindValue, envUpdate, type Env } from "../env/index.ts"
-import { bindsToArray, type Exp } from "../exp/index.ts"
+import { bindingsToArray, type Exp } from "../exp/index.ts"
 import { modFindValue, type Mod } from "../mod/index.ts"
 import * as Neutrals from "../value/index.ts"
 import * as Values from "../value/index.ts"
@@ -34,7 +34,7 @@ export function evaluateWithDelay(mod: Mod, env: Env, exp: Exp): Value {
 
     case "Let": {
       const oldEnv = env
-      for (const bind of bindsToArray(exp.binds)) {
+      for (const bind of bindingsToArray(exp.bindings)) {
         env = envUpdate(
           env,
           bind.name,
