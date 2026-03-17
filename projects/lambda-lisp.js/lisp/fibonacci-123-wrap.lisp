@@ -63,4 +63,4 @@
 
 ;; TODO fail:
 ;; Maximum call stack size exceeded
-; ;(assert-bisimilar fibonacci-2 fibonacci-3)
+;; (assert-bisimilar fibonacci-2 fibonacci-3)
