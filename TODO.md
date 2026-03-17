@@ -1,8 +1,7 @@
 > back to call-by-value evaluation
 
-remove DelayedApplyValue
-remove `expIndirectFreeNames`
 remove freeNames and isRecursive from `Definition`
+remove `expIndirectFreeNames`
 
 # bug
 
@@ -25,16 +24,6 @@ remove freeNames and isRecursive from `Definition`
 (define factorial-1 (factorial-wrap factorial-1))
 (define (factorial-1 n) ((factorial-wrap factorial-1) n))
 ```
-
-# recursive lambda
-
-use `RecursiveLambda` instead of `DefinedLambda`
-
-- i tried, but it is too slow
-
-`sameInCtx` -- use head on `DelayedApply`, but only for `RecursiveLambda`
-
-- maybe this can pass `fibonacci`, but not `ackermann`
 
 # later
 

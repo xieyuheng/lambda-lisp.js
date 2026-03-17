@@ -14,12 +14,6 @@ export function formatValue(value: Value): string {
 
       return `(lambda (${value.name}) ${formatExp(value.ret)})`
     }
-
-    case "DelayedApplyValue": {
-      const target = formatValue(value.target)
-      const arg = formatValue(value.arg)
-      return `(${target} ${arg})`
-    }
   }
 }
 
