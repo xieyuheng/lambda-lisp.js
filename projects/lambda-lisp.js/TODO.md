@@ -1,5 +1,3 @@
-improve tests framework
-
 recover all tests
 
 `valueConvertible` -- handle eta-equivalence

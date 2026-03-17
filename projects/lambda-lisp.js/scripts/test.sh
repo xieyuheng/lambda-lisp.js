@@ -1,19 +1,11 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
+set -e
+
+parallel="parallel -v --halt now,fail=1"
 bin="node ./lib/main.js run"
-ext=lisp
+flags=""
 
-for file in $(find lisp -name "*.${ext}" -not -name "*.test.${ext}" -not -name "*.error.${ext}" -not -name "*.play.${ext}" -not -name "*.benchmark.${ext}"); do
-    echo "[run] $file"
-    ${bin} $file
-done
-
-for file in $(find lisp -name "*.test.${ext}"); do
-    echo "[out] $file"
-    ${bin} $file > $file.out
-done
-
-for file in $(find lisp -name "*.error.${ext}"); do
-    echo "[err] $file"
-    ${bin} $file > $file.err || true
-done
+find lisp/tests -name "*.test.lisp" | $parallel $bin {} $flags
+find lisp/tests -name "*.snapshot.lisp" | $parallel $bin {} $flags ">" {}.out
+find lisp/tests -name "*.error.lisp" | $parallel $bin {} $flags ">" {}.err "||" true
