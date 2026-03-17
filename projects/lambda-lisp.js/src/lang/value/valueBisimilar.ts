@@ -71,6 +71,9 @@ function neutralBisimilar(
   }
 
   if (lhs.kind === "ApplyNeutral" && rhs.kind === "ApplyNeutral") {
+    trail = [...trail, [L.NeutralValue(lhs), L.NeutralValue(rhs)]]
+    trail = [...trail, [L.NeutralValue(rhs), L.NeutralValue(lhs)]]
+
     return (
       neutralBisimilar(trail, lhs.target, rhs.target) &&
       valueBisimilar(trail, lhs.arg, rhs.arg)
