@@ -44,8 +44,8 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
 
     const freshName = freshen(ctx.boundNames, lhs.name)
     ctx = ctxBindName(ctx, freshName)
-    const v = Neutrals.Var(freshName)
-    const arg = Values.NotYet(v)
+    const v = Neutrals.VarNeutral(freshName)
+    const arg = Values.NotYetValue(v)
     return equalInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 
@@ -60,8 +60,8 @@ export function equalInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
 
     const freshName = freshen(ctx.boundNames, rhs.name)
     ctx = ctxBindName(ctx, freshName)
-    const v = Neutrals.Var(freshName)
-    const arg = Values.NotYet(v)
+    const v = Neutrals.VarNeutral(freshName)
+    const arg = Values.NotYetValue(v)
     return equalInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 

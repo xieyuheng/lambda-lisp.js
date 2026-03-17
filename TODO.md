@@ -1,10 +1,7 @@
 > back to call-by-value evaluation
 
-add Value postfix to value types
 extract definition/
-
 rename bind to binding
-rename Values.Lambda to Value.Closure
 
 remove Lazy
 remove DelayedApply

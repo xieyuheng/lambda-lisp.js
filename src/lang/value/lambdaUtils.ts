@@ -1,12 +1,12 @@
-import { type Lambda } from "./Value.ts"
+import { type ClosureValue } from "./Value.ts"
 
-export type DefinedLambda = Lambda & { definedName: string }
+export type DefinedLambda = ClosureValue & { definedName: string }
 
-export function lambdaIsDefined(lambda: Lambda): lambda is DefinedLambda {
+export function lambdaIsDefined(lambda: ClosureValue): lambda is DefinedLambda {
   return lambda.definedName !== undefined
 }
 
-export function lambdaSameDefined(x: Lambda, y: Lambda): boolean {
+export function lambdaSameDefined(x: ClosureValue, y: ClosureValue): boolean {
   return (
     lambdaIsDefined(x) &&
     lambdaIsDefined(y) &&

@@ -41,14 +41,14 @@ export function sameInCtx(ctx: Ctx, lhs: Value, rhs: Value): boolean {
   if (lhs.kind === "Lambda" && !lambdaIsDefined(lhs)) {
     const freshName = freshen(ctx.boundNames, lhs.name)
     ctx = ctxBindName(ctx, freshName)
-    const arg = Values.NotYet(Neutrals.Var(freshName))
+    const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 
   if (rhs.kind === "Lambda" && !lambdaIsDefined(rhs)) {
     const freshName = freshen(ctx.boundNames, rhs.name)
     ctx = ctxBindName(ctx, freshName)
-    const arg = Values.NotYet(Neutrals.Var(freshName))
+    const arg = Values.NotYetValue(Neutrals.VarNeutral(freshName))
     return sameInCtx(ctx, applyWithDelay(lhs, arg), applyWithDelay(rhs, arg))
   }
 
