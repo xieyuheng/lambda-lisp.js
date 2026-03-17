@@ -70,9 +70,7 @@
 (assert-bisimilar (ackermann/1 one two) four)
 (assert-bisimilar (ackermann/1 zero three) four)
 
-;; TODO fail:
-
-;; (assert-bisimilar ackermann ackermann/1)
+(assert-bisimilar ackermann ackermann/1)
 
 (assert-bisimilar
   (lambda (m n)

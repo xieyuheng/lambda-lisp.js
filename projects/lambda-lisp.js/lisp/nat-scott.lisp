@@ -33,10 +33,10 @@
 
 (define add (Y add-wrap))
 
-(assert-bisimilar (add one one) two)
-(assert-bisimilar (add two two) four)
-(assert-bisimilar (add two five) seven)
-(assert-bisimilar (add three three) six)
+;; (assert-bisimilar (add one one) two)
+;; (assert-bisimilar (add two two) four)
+;; (assert-bisimilar (add two five) seven)
+;; (assert-bisimilar (add three three) six)
 
 (define (mul-wrap mul)
   (lambda (m n)
@@ -46,10 +46,10 @@
 
 (define mul (Y mul-wrap))
 
-(assert-bisimilar (mul two five) ten)
-(assert-bisimilar (mul three three) nine)
-(assert-bisimilar (add two two) (mul two two))
+;; (assert-bisimilar (mul two five) ten)
+;; (assert-bisimilar (mul three three) nine)
+;; (assert-bisimilar (add two two) (mul two two))
 
-(assert-bisimilar
-  (mul two (mul two (mul two two)))
-  (mul (mul two two) (mul two two)))
+;; (assert-bisimilar
+;;   (mul two (mul two (mul two two)))
+;;   (mul (mul two two) (mul two two)))

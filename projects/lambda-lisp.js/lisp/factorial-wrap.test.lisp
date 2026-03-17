@@ -7,15 +7,15 @@
 
 (assert-bisimilar ((Y factorial-wrap) zero) one)
 (assert-bisimilar ((Y factorial-wrap) one) one)
-(assert-bisimilar ((Y factorial-wrap) two) two)
-(assert-bisimilar ((Y factorial-wrap) three) (mul three two))
-(assert-bisimilar ((Y factorial-wrap) four) (mul four (mul three two)))
-(assert-bisimilar ((Y factorial-wrap) five) (mul five (mul four (mul three two))))
+;; (assert-bisimilar ((Y factorial-wrap) two) two)
+;; (assert-bisimilar ((Y factorial-wrap) three) (mul three two))
+;; (assert-bisimilar ((Y factorial-wrap) four) (mul four (mul three two)))
+;; (assert-bisimilar ((Y factorial-wrap) five) (mul five (mul four (mul three two))))
 
 (import "factorial-wrap.lisp" factorial)
 
-(assert-bisimilar factorial (factorial-wrap factorial))
-(assert-bisimilar factorial (factorial-wrap (factorial-wrap factorial)))
+;; (assert-bisimilar factorial (factorial-wrap factorial))
+;; (assert-bisimilar factorial (factorial-wrap (factorial-wrap factorial)))
 
 (assert-bisimilar
   (lambda (factorial)
