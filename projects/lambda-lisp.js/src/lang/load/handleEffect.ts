@@ -1,18 +1,12 @@
-import { emptyEnv } from "../env/index.ts"
-import { equal } from "../equal/index.ts"
-import { evaluate } from "../evaluate/index.ts"
-import { formatExp } from "../format/index.ts"
-import type { Mod } from "../mod/index.ts"
-import { readback } from "../readback/index.ts"
-import { same } from "../same/index.ts"
-import type { Stmt } from "../stmt/index.ts"
+import * as L from "../index.ts"
 
-export async function handleEffect(mod: Mod, stmt: Stmt): Promise<void> {
+export async function handleEffect(mod: L.Mod, stmt: L.Stmt): Promise<void> {
   if (stmt.kind === "AssertEqual") {
     if (
-      equal(
-        evaluate(mod, emptyEnv(), stmt.lhs),
-        evaluate(mod, emptyEnv(), stmt.rhs),
+      L.valueBisimilar(
+        [],
+        L.evaluate(mod, L.emptyEnv(), stmt.lhs),
+        L.evaluate(mod, L.emptyEnv(), stmt.rhs),
       )
     ) {
       return
@@ -20,16 +14,17 @@ export async function handleEffect(mod: Mod, stmt: Stmt): Promise<void> {
 
     throw new Error(
       `[assert-equal] fail:\n` +
-        `  lhs: ${formatExp(stmt.lhs)}\n` +
-        `  rhs: ${formatExp(stmt.rhs)}\n`,
+        `  lhs: ${L.formatExp(stmt.lhs)}\n` +
+        `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )
   }
 
   if (stmt.kind === "AssertNotEqual") {
     if (
-      !equal(
-        evaluate(mod, emptyEnv(), stmt.lhs),
-        evaluate(mod, emptyEnv(), stmt.rhs),
+      !L.valueBisimilar(
+        [],
+        L.evaluate(mod, L.emptyEnv(), stmt.lhs),
+        L.evaluate(mod, L.emptyEnv(), stmt.rhs),
       )
     ) {
       return
@@ -37,16 +32,16 @@ export async function handleEffect(mod: Mod, stmt: Stmt): Promise<void> {
 
     throw new Error(
       `[assert-not-equal] fail:\n` +
-        `  lhs: ${formatExp(stmt.lhs)}\n` +
-        `  rhs: ${formatExp(stmt.rhs)}\n`,
+        `  lhs: ${L.formatExp(stmt.lhs)}\n` +
+        `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )
   }
 
   if (stmt.kind === "AssertSame") {
     if (
-      same(
-        evaluate(mod, emptyEnv(), stmt.lhs),
-        evaluate(mod, emptyEnv(), stmt.rhs),
+      L.valueConvertible(
+        L.evaluate(mod, L.emptyEnv(), stmt.lhs),
+        L.evaluate(mod, L.emptyEnv(), stmt.rhs),
       )
     ) {
       return
@@ -54,16 +49,16 @@ export async function handleEffect(mod: Mod, stmt: Stmt): Promise<void> {
 
     throw new Error(
       `[assert-same] fail:\n` +
-        `  lhs: ${formatExp(stmt.lhs)}\n` +
-        `  rhs: ${formatExp(stmt.rhs)}\n`,
+        `  lhs: ${L.formatExp(stmt.lhs)}\n` +
+        `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )
   }
 
   if (stmt.kind === "AssertNotSame") {
     if (
-      !same(
-        evaluate(mod, emptyEnv(), stmt.lhs),
-        evaluate(mod, emptyEnv(), stmt.rhs),
+      !L.valueConvertible(
+        L.evaluate(mod, L.emptyEnv(), stmt.lhs),
+        L.evaluate(mod, L.emptyEnv(), stmt.rhs),
       )
     ) {
       return
@@ -71,15 +66,15 @@ export async function handleEffect(mod: Mod, stmt: Stmt): Promise<void> {
 
     throw new Error(
       `[assert-not-same] fail:\n` +
-        `  lhs: ${formatExp(stmt.lhs)}\n` +
-        `  rhs: ${formatExp(stmt.rhs)}\n`,
+        `  lhs: ${L.formatExp(stmt.lhs)}\n` +
+        `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )
   }
 
   if (stmt.kind === "Compute") {
-    const value = evaluate(mod, emptyEnv(), stmt.exp)
-    const exp = readback(value)
-    console.log(formatExp(exp))
+    const value = L.evaluate(mod, L.emptyEnv(), stmt.exp)
+    const exp = L.readback(value)
+    console.log(L.formatExp(exp))
     return
   }
 }

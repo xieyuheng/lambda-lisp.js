@@ -1,4 +1,4 @@
-import { same } from "../same/index.ts"
+import * as L from "../index.ts"
 import { type Value } from "../value/index.ts"
 
 export type Blaze = {
@@ -33,7 +33,7 @@ export function ctxBlazeTrail(ctx: Ctx, value: Value): Ctx {
 
 export function ctxBlazeOccurred(ctx: Ctx, value: Value): boolean {
   for (const blaze of ctx.trail) {
-    if (same(value, blaze.value)) {
+    if (L.valueConvertible(value, blaze.value)) {
       return true
     }
   }

@@ -1,3 +1,8 @@
+rename readbackInCtx to readback
+
+rename assert-equal to assert-bisimilar
+rename assert-same to assert-convertible
+
 # bug
 
 [bug] `(assert-equal fibonacci fibonacci/1)` fail

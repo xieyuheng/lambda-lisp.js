@@ -3,17 +3,17 @@
 bin="node ./lib/main.js run"
 ext=lisp
 
-for example in $(find examples -name "*.${ext}" -not -name "*.test.${ext}" -not -name "*.error.${ext}" -not -name "*.play.${ext}" -not -name "*.benchmark.${ext}"); do
-    echo "[run] $example"
-    ${bin} $example
+for file in $(find lisp -name "*.${ext}" -not -name "*.test.${ext}" -not -name "*.error.${ext}" -not -name "*.play.${ext}" -not -name "*.benchmark.${ext}"); do
+    echo "[run] $file"
+    ${bin} $file
 done
 
-for example in $(find examples -name "*.test.${ext}"); do
-    echo "[out] $example"
-    ${bin} $example > $example.out
+for file in $(find lisp -name "*.test.${ext}"); do
+    echo "[out] $file"
+    ${bin} $file > $file.out
 done
 
-for example in $(find examples -name "*.error.${ext}"); do
-    echo "[err] $example"
-    ${bin} $example > $example.err || true
+for file in $(find lisp -name "*.error.${ext}"); do
+    echo "[err] $file"
+    ${bin} $file > $file.err || true
 done
