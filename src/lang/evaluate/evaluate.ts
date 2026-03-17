@@ -17,7 +17,7 @@ export function evaluate(mod: Mod, env: Env, exp: Exp): Value {
       if (value !== undefined) return value
 
       throw new Error(
-        `[evaluateWithDelay] I meet undefined name: ${exp.name}, in mod: ${mod.url}`,
+        `[evaluate] I meet undefined name: ${exp.name}, in mod: ${mod.url}`,
       )
     }
 

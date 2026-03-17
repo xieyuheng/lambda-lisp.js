@@ -42,6 +42,10 @@ function readbackNeutralInCtx(ctx: Ctx, neutral: Neutral): Exp {
       return Exps.Var(neutral.name)
     }
 
+    case "ConstantNeutral": {
+      return Exps.Var(neutral.definition.name)
+    }
+
     case "ApplyNeutral": {
       return Exps.Apply(
         readbackNeutralInCtx(ctx, neutral.target),

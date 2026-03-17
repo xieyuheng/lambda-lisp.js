@@ -1,6 +1,7 @@
+import type { Definition } from "../definition/index.ts"
 import { type Value } from "../value/index.ts"
 
-export type Neutral = VarNeutral | ApplyNeutral
+export type Neutral = VarNeutral | ConstantNeutral | ApplyNeutral
 
 export type VarNeutral = {
   kind: "VarNeutral"
@@ -11,6 +12,18 @@ export function VarNeutral(name: string): VarNeutral {
   return {
     kind: "VarNeutral",
     name,
+  }
+}
+
+export type ConstantNeutral = {
+  kind: "ConstantNeutral"
+  definition: Definition
+}
+
+export function ConstantNeutral(definition: Definition): ConstantNeutral {
+  return {
+    kind: "ConstantNeutral",
+    definition,
   }
 }
 

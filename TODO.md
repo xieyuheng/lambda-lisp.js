@@ -1,3 +1,6 @@
+`evaluate` return `ConstantNeutral` on
+evaluateForNormalization
+
 # bug
 
 [bug] `(assert-equal fibonacci fibonacci/1)` fail

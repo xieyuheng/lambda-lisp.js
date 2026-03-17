@@ -23,6 +23,10 @@ export function formatNeutral(neutral: Neutral): string {
       return neutral.name
     }
 
+    case "ConstantNeutral": {
+      return neutral.definition.name
+    }
+
     case "ApplyNeutral": {
       const target = formatNeutral(neutral.target)
       const arg = formatValue(neutral.arg)
