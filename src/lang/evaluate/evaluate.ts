@@ -16,7 +16,7 @@ export function evaluate(mod: Mod, env: Env, exp: Exp): Value {
 
       const definition = modLookup(mod, exp.name)
       if (definition !== undefined) {
-        return L.definitionMeaning(definition)
+        return L.NotYetValue(L.ConstantNeutral(definition))
       }
 
       let message = `[evaluate] undefined name`
