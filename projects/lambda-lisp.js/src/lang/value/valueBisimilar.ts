@@ -14,8 +14,8 @@ export function valueBisimilar(
     return true
   }
 
-  trail = [[lhs, rhs], ...trail]
-  trail = [[rhs, lhs], ...trail]
+  trail = [...trail, [lhs, rhs]]
+  trail = [...trail, [rhs, lhs]]
 
   if (lhs.kind === "ClosureValue" && rhs.kind === "ClosureValue") {
     const freshName = L.generateFreshName(lhs.name)
