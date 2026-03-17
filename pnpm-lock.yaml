@@ -6,7 +6,7 @@ settings:
 
 importers:
 
-  .:
+  projects/lambda-lisp.js:
     dependencies:
       '@xieyuheng/commander.js':
         specifier: ^0.1.3
