@@ -5,19 +5,19 @@
 
 (import "factorial-wrap.lisp" factorial-wrap)
 
-(assert-equal ((Y factorial-wrap) zero) one)
-(assert-equal ((Y factorial-wrap) one) one)
-(assert-equal ((Y factorial-wrap) two) two)
-(assert-equal ((Y factorial-wrap) three) (mul three two))
-(assert-equal ((Y factorial-wrap) four) (mul four (mul three two)))
-(assert-equal ((Y factorial-wrap) five) (mul five (mul four (mul three two))))
+(assert-bisimilar ((Y factorial-wrap) zero) one)
+(assert-bisimilar ((Y factorial-wrap) one) one)
+(assert-bisimilar ((Y factorial-wrap) two) two)
+(assert-bisimilar ((Y factorial-wrap) three) (mul three two))
+(assert-bisimilar ((Y factorial-wrap) four) (mul four (mul three two)))
+(assert-bisimilar ((Y factorial-wrap) five) (mul five (mul four (mul three two))))
 
 (import "factorial-wrap.lisp" factorial)
 
-(assert-equal factorial (factorial-wrap factorial))
-(assert-equal factorial (factorial-wrap (factorial-wrap factorial)))
+(assert-bisimilar factorial (factorial-wrap factorial))
+(assert-bisimilar factorial (factorial-wrap (factorial-wrap factorial)))
 
-(assert-equal
+(assert-bisimilar
   (lambda (factorial)
     (factorial-wrap
      (factorial-wrap
@@ -44,7 +44,7 @@
                 (sub1 n)))))
           (sub1 n)))))))
 
-(assert-equal
+(assert-bisimilar
   (factorial-wrap
    (factorial-wrap
     (factorial-wrap

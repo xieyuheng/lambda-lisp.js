@@ -6,18 +6,18 @@
 
 ackermann
 
-(assert-equal (ackermann zero zero) one)
-(assert-equal (ackermann one zero) two)
-(assert-equal (ackermann zero one) two)
-(assert-equal (ackermann two zero) three)
-(assert-equal (ackermann one one) three)
-(assert-equal (ackermann zero two) three)
-(assert-equal (ackermann three zero) five)
-(assert-equal (ackermann two one) five)
-(assert-equal (ackermann one two) four)
-(assert-equal (ackermann zero three) four)
+(assert-bisimilar (ackermann zero zero) one)
+(assert-bisimilar (ackermann one zero) two)
+(assert-bisimilar (ackermann zero one) two)
+(assert-bisimilar (ackermann two zero) three)
+(assert-bisimilar (ackermann one one) three)
+(assert-bisimilar (ackermann zero two) three)
+(assert-bisimilar (ackermann three zero) five)
+(assert-bisimilar (ackermann two one) five)
+(assert-bisimilar (ackermann one two) four)
+(assert-bisimilar (ackermann zero three) four)
 
-(assert-equal
+(assert-bisimilar
   ackermann
   (lambda (m n)
     (if (zero? m)
@@ -26,7 +26,7 @@ ackermann
         (ackermann (sub1 m) one)
         (ackermann (sub1 m) (ackermann m (sub1 n)))))))
 
-(assert-equal
+(assert-bisimilar
   ackermann
   (lambda (m n)
     (if (zero? m)

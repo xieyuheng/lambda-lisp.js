@@ -17,22 +17,22 @@
        (sub1 m)
        (ackermann/1 m (sub1 n))))))
 
-(assert-equal (ackermann/1 zero zero) one)
-(assert-equal (ackermann/1 one zero) two)
-(assert-equal (ackermann/1 zero one) two)
-(assert-equal (ackermann/1 two zero) three)
-(assert-equal (ackermann/1 one one) three)
-(assert-equal (ackermann/1 zero two) three)
-(assert-equal (ackermann/1 three zero) five)
-(assert-equal (ackermann/1 two one) five)
-(assert-equal (ackermann/1 one two) four)
-(assert-equal (ackermann/1 zero three) four)
+(assert-bisimilar (ackermann/1 zero zero) one)
+(assert-bisimilar (ackermann/1 one zero) two)
+(assert-bisimilar (ackermann/1 zero one) two)
+(assert-bisimilar (ackermann/1 two zero) three)
+(assert-bisimilar (ackermann/1 one one) three)
+(assert-bisimilar (ackermann/1 zero two) three)
+(assert-bisimilar (ackermann/1 three zero) five)
+(assert-bisimilar (ackermann/1 two one) five)
+(assert-bisimilar (ackermann/1 one two) four)
+(assert-bisimilar (ackermann/1 zero three) four)
 
 ;; TODO fail:
 
-;; (assert-equal ackermann ackermann/1)
+;; (assert-bisimilar ackermann ackermann/1)
 
-(assert-equal
+(assert-bisimilar
   (lambda (m n)
     (if (zero? m)
       (add1 n)
@@ -53,7 +53,7 @@
          (sub1 m)
          (ackermann m (sub1 n)))))))
 
-(assert-equal
+(assert-bisimilar
   ackermann
   (lambda (m n)
     (if (zero? m)
@@ -81,7 +81,7 @@
                 (ackermann (sub1 m) (ackermann m (sub1 n))))))
           m (sub1 n)))))))
 
-(assert-equal
+(assert-bisimilar
   ackermann
   (lambda (m n)
     (if (zero? m)

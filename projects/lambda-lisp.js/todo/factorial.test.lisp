@@ -3,12 +3,12 @@
 
 (import "factorial.lisp" factorial)
 
-(assert-equal (factorial zero) one)
-(assert-equal (factorial one) one)
-(assert-equal (factorial two) two)
-(assert-equal (factorial three) (mul three two))
-(assert-equal (factorial four) (mul four (mul three two)))
-(assert-equal (factorial five) (mul five (mul four (mul three two))))
+(assert-bisimilar (factorial zero) one)
+(assert-bisimilar (factorial one) one)
+(assert-bisimilar (factorial two) two)
+(assert-bisimilar (factorial three) (mul three two))
+(assert-bisimilar (factorial four) (mul four (mul three two)))
+(assert-bisimilar (factorial five) (mul five (mul four (mul three two))))
 
 ;; test readback recursive functions
 
@@ -16,10 +16,10 @@ factorial
 
 ;; test equivalence between recursive functions
 
-(assert-same factorial factorial)
-(assert-equal factorial factorial)
+(assert-convertible factorial factorial)
+(assert-bisimilar factorial factorial)
 
-(assert-not-same factorial (lambda (x) (factorial x)))
-(assert-equal factorial (lambda (y) (factorial y)))
-(assert-equal factorial (lambda (x) (factorial x)))
-(assert-equal (lambda (x) (factorial x)) (lambda (y) (factorial y)))
+(assert-not-convertible factorial (lambda (x) (factorial x)))
+(assert-bisimilar factorial (lambda (y) (factorial y)))
+(assert-bisimilar factorial (lambda (x) (factorial x)))
+(assert-bisimilar (lambda (x) (factorial x)) (lambda (y) (factorial y)))

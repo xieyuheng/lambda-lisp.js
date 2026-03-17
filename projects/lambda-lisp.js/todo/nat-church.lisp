@@ -15,8 +15,8 @@
 
 (define (add m n) (iter-Nat m n add1))
 
-(assert-equal (add two five) seven)
-(assert-equal (add three three) six)
+(assert-bisimilar (add two five) seven)
+(assert-bisimilar (add three three) six)
 
 ;; The above `add` is `O(n)`,
 ;; Rosser has a `O(4)` `add`, which takes
@@ -27,36 +27,36 @@
   (lambda (base step)
     (iter-Nat m (iter-Nat n base step) step)))
 
-(assert-equal (add-rosser two five) seven)
-(assert-equal (add-rosser three three) six)
+(assert-bisimilar (add-rosser two five) seven)
+(assert-bisimilar (add-rosser three three) six)
 
 (define (mul m n) (iter-Nat m zero (add n)))
 
-(assert-equal (mul two five) ten)
-(assert-equal (mul three three) nine)
-(assert-equal (add two two) (mul two two))
+(assert-bisimilar (mul two five) ten)
+(assert-bisimilar (mul three three) nine)
+(assert-bisimilar (add two two) (mul two two))
 
-(assert-equal
+(assert-bisimilar
   (mul two (mul two (mul two two)))
   (mul (mul two two) (mul two two)))
 
 (define (power-of m n) (iter-Nat m one (mul n)))
 (define (power m n) (power-of n m))
 
-(assert-equal (power two three) eight)
-(assert-equal (power three two) nine)
+(assert-bisimilar (power two three) eight)
+(assert-bisimilar (power three two) nine)
 
-(assert-equal (power two four) (power four two))
-(assert-equal (power two four) (mul four four))
-(assert-equal (power two four) (mul (mul two two) (mul two two)))
+(assert-bisimilar (power two four) (power four two))
+(assert-bisimilar (power two four) (mul four four))
+(assert-bisimilar (power two four) (mul (mul two two) (mul two two)))
 
 (import "bool.lisp" true false if and or not)
 
 (define (zero? n) (iter-Nat n true (lambda (x) false)))
 
-(assert-equal (zero? zero) true)
-(assert-equal (zero? one) false)
-(assert-equal (zero? two) false)
+(assert-bisimilar (zero? zero) true)
+(assert-bisimilar (zero? one) false)
+(assert-bisimilar (zero? two) false)
 
 ;; The `sub1` about is `O(n)`,
 ;; while `sub1` for Scott encoding is `O(3)`.
@@ -69,19 +69,19 @@
 (define (sub1 n)
   (car (iter-Nat n (cons zero zero) shift-add1)))
 
-(assert-equal (sub1 two) one)
-(assert-equal (sub1 one) zero)
-(assert-equal (sub1 zero) zero)
+(assert-bisimilar (sub1 two) one)
+(assert-bisimilar (sub1 one) zero)
+(assert-bisimilar (sub1 zero) zero)
 
 (define (sub m n) (iter-Nat n m sub1))
 
-(assert-equal (sub three zero) three)
-(assert-equal (sub three one) two)
-(assert-equal (sub three two) one)
-(assert-equal (sub three three) zero)
-(assert-equal (sub three four) zero)
+(assert-bisimilar (sub three zero) three)
+(assert-bisimilar (sub three one) two)
+(assert-bisimilar (sub three two) one)
+(assert-bisimilar (sub three three) zero)
+(assert-bisimilar (sub three four) zero)
 
 (define (lteq m n) (zero? (sub m n)))
 
-(assert-equal (lteq three four) true)
-(assert-equal (lteq four three) false)
+(assert-bisimilar (lteq three four) true)
+(assert-bisimilar (lteq four three) false)

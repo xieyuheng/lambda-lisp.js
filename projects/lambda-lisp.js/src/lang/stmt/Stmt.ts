@@ -1,18 +1,30 @@
 import { type Exp } from "../exp/index.ts"
 
 export type Stmt =
-  | AssertEqual
-  | AssertNotEqual
-  | AssertSame
-  | AssertNotSame
+  | AssertBisimilar
+  | AssertNotBisimilar
+  | AssertConvertible
+  | AssertNotConvertible
   | Compute
   | Define
   | Import
 
-export type AssertEqual = { kind: "AssertEqual"; lhs: Exp; rhs: Exp }
-export type AssertNotEqual = { kind: "AssertNotEqual"; lhs: Exp; rhs: Exp }
-export type AssertSame = { kind: "AssertSame"; lhs: Exp; rhs: Exp }
-export type AssertNotSame = { kind: "AssertNotSame"; lhs: Exp; rhs: Exp }
+export type AssertBisimilar = { kind: "AssertBisimilar"; lhs: Exp; rhs: Exp }
+export type AssertNotBisimilar = {
+  kind: "AssertNotBisimilar"
+  lhs: Exp
+  rhs: Exp
+}
+export type AssertConvertible = {
+  kind: "AssertConvertible"
+  lhs: Exp
+  rhs: Exp
+}
+export type AssertNotConvertible = {
+  kind: "AssertNotConvertible"
+  lhs: Exp
+  rhs: Exp
+}
 export type Compute = { kind: "Compute"; exp: Exp }
 export type Define = { kind: "Define"; name: string; exp: Exp }
 export type Import = {
@@ -26,33 +38,33 @@ export type ImportEntry = {
   rename?: string
 }
 
-export function AssertEqual(lhs: Exp, rhs: Exp): AssertEqual {
+export function AssertBisimilar(lhs: Exp, rhs: Exp): AssertBisimilar {
   return {
-    kind: "AssertEqual",
+    kind: "AssertBisimilar",
     lhs,
     rhs,
   }
 }
 
-export function AssertNotEqual(lhs: Exp, rhs: Exp): AssertNotEqual {
+export function AssertNotBisimilar(lhs: Exp, rhs: Exp): AssertNotBisimilar {
   return {
-    kind: "AssertNotEqual",
+    kind: "AssertNotBisimilar",
     lhs,
     rhs,
   }
 }
 
-export function AssertSame(lhs: Exp, rhs: Exp): AssertSame {
+export function AssertConvertible(lhs: Exp, rhs: Exp): AssertConvertible {
   return {
-    kind: "AssertSame",
+    kind: "AssertConvertible",
     lhs,
     rhs,
   }
 }
 
-export function AssertNotSame(lhs: Exp, rhs: Exp): AssertNotSame {
+export function AssertNotConvertible(lhs: Exp, rhs: Exp): AssertNotConvertible {
   return {
-    kind: "AssertNotSame",
+    kind: "AssertNotConvertible",
     lhs,
     rhs,
   }

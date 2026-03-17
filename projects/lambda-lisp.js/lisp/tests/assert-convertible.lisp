@@ -1,35 +1,35 @@
-(assert-same
+(assert-convertible
   (lambda (x) x)
   (lambda (y) y))
 
-(assert-same
+(assert-convertible
   (lambda (x y) (x y))
   (lambda (y x) (y x)))
 
-(assert-not-same
+(assert-not-convertible
   (lambda (x y) (x y))
   (lambda (x y) (y x)))
 
 (define (id1 x) x)
 (define (id2 x) x)
 
-(assert-same id1 id1)
-(assert-same id2 id2)
-(assert-not-same id1 id2)
+(assert-convertible id1 id1)
+(assert-convertible id2 id2)
+(assert-not-convertible id1 id2)
 
-(assert-same
+(assert-convertible
   (lambda (x) (id2 x))
   (lambda (x) (id2 x)))
 
 ;; partial evaluation for unnamed lambda:
-(assert-same
+(assert-convertible
   (lambda (x) ((lambda (x) (id2 x)) x))
   (lambda (x) (id2 x)))
 
-(assert-not-same
+(assert-not-convertible
   id1
   (lambda (x) (id1 x)))
 
-(assert-not-same
+(assert-not-convertible
   (lambda (x) (id2 x))
   (lambda (x) (id1 x)))

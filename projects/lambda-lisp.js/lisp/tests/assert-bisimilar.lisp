@@ -1,11 +1,11 @@
-(assert-equal
+(assert-bisimilar
   (lambda (x) x)
   (lambda (y) y))
 
-(assert-equal
+(assert-bisimilar
   (lambda (x y) (x y))
   (lambda (y x) (y x)))
 
-(assert-not-equal
+(assert-not-bisimilar
   (lambda (x y) (x y))
   (lambda (x y) (y x)))

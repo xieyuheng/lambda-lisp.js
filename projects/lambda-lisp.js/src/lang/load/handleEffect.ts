@@ -1,7 +1,7 @@
 import * as L from "../index.ts"
 
 export async function handleEffect(mod: L.Mod, stmt: L.Stmt): Promise<void> {
-  if (stmt.kind === "AssertEqual") {
+  if (stmt.kind === "AssertBisimilar") {
     if (
       L.valueBisimilar(
         [],
@@ -13,13 +13,13 @@ export async function handleEffect(mod: L.Mod, stmt: L.Stmt): Promise<void> {
     }
 
     throw new Error(
-      `[assert-equal] fail:\n` +
+      `[assert-bisimilar] fail:\n` +
         `  lhs: ${L.formatExp(stmt.lhs)}\n` +
         `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )
   }
 
-  if (stmt.kind === "AssertNotEqual") {
+  if (stmt.kind === "AssertNotBisimilar") {
     if (
       !L.valueBisimilar(
         [],
@@ -31,13 +31,13 @@ export async function handleEffect(mod: L.Mod, stmt: L.Stmt): Promise<void> {
     }
 
     throw new Error(
-      `[assert-not-equal] fail:\n` +
+      `[assert-not-bisimilar] fail:\n` +
         `  lhs: ${L.formatExp(stmt.lhs)}\n` +
         `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )
   }
 
-  if (stmt.kind === "AssertSame") {
+  if (stmt.kind === "AssertConvertible") {
     if (
       L.valueConvertible(
         L.evaluate(mod, L.emptyEnv(), stmt.lhs),
@@ -48,13 +48,13 @@ export async function handleEffect(mod: L.Mod, stmt: L.Stmt): Promise<void> {
     }
 
     throw new Error(
-      `[assert-same] fail:\n` +
+      `[assert-convertible] fail:\n` +
         `  lhs: ${L.formatExp(stmt.lhs)}\n` +
         `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )
   }
 
-  if (stmt.kind === "AssertNotSame") {
+  if (stmt.kind === "AssertNotConvertible") {
     if (
       !L.valueConvertible(
         L.evaluate(mod, L.emptyEnv(), stmt.lhs),
@@ -65,7 +65,7 @@ export async function handleEffect(mod: L.Mod, stmt: L.Stmt): Promise<void> {
     }
 
     throw new Error(
-      `[assert-not-same] fail:\n` +
+      `[assert-not-convertible] fail:\n` +
         `  lhs: ${L.formatExp(stmt.lhs)}\n` +
         `  rhs: ${L.formatExp(stmt.rhs)}\n`,
     )

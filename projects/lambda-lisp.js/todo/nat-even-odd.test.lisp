@@ -4,37 +4,37 @@
 
 (import "nat-even-odd.lisp" even? odd?)
 
-(assert-equal true (even? zero))
-(assert-equal true (even? two))
-(assert-equal true (even? four))
+(assert-bisimilar true (even? zero))
+(assert-bisimilar true (even? two))
+(assert-bisimilar true (even? four))
 
-(assert-equal false (even? one))
-(assert-equal false (even? three))
+(assert-bisimilar false (even? one))
+(assert-bisimilar false (even? three))
 
-(assert-equal false (odd? zero))
-(assert-equal false (odd? two))
-(assert-equal false (odd? four))
+(assert-bisimilar false (odd? zero))
+(assert-bisimilar false (odd? two))
+(assert-bisimilar false (odd? four))
 
-(assert-equal true (odd? one))
-(assert-equal true (odd? three))
+(assert-bisimilar true (odd? one))
+(assert-bisimilar true (odd? three))
 
 ;; test equivalence between recursive functions
 
-(assert-equal even? even?)
-(assert-equal odd? odd?)
+(assert-bisimilar even? even?)
+(assert-bisimilar odd? odd?)
 
 (import "nat-even-odd.lisp" direct-even? direct-odd?)
 
-(assert-equal even? direct-even?)
-(assert-equal odd? direct-odd?)
+(assert-bisimilar even? direct-even?)
+(assert-bisimilar odd? direct-odd?)
 
-(assert-equal
+(assert-bisimilar
   even?
   (lambda (n)
     (if (zero? n) true
         (odd? (sub1 n)))))
 
-(assert-not-equal
+(assert-not-bisimilar
   odd?
   (lambda (n)
     (if (zero? n) true

@@ -18,19 +18,19 @@
     n
     (lambda (prev almost) (add1 almost))))
 
-(assert-equal (add two five) seven)
-(assert-equal (add three three) six)
+(assert-bisimilar (add two five) seven)
+(assert-bisimilar (add three three) six)
 
 (define (mul m n)
   (rec-Nat m
     zero
     (lambda (prev almost) (add n almost))))
 
-(assert-equal (mul two five) ten)
-(assert-equal (mul three three) nine)
-(assert-equal (add two two) (mul two two))
+(assert-bisimilar (mul two five) ten)
+(assert-bisimilar (mul three three) nine)
+(assert-bisimilar (add two two) (mul two two))
 
-(assert-equal
+(assert-bisimilar
   (mul two (mul two (mul two two)))
   (mul (mul two two) (mul two two)))
 
@@ -39,19 +39,19 @@
     zero
     (lambda (prev almost) prev)))
 
-(assert-equal (sub1 three) two)
-(assert-equal (sub1 two) one)
-(assert-equal (sub1 one) zero)
-(assert-equal (sub1 zero) zero)
+(assert-bisimilar (sub1 three) two)
+(assert-bisimilar (sub1 two) one)
+(assert-bisimilar (sub1 one) zero)
+(assert-bisimilar (sub1 zero) zero)
 
 (define (factorial n)
   (rec-Nat n
     one
     (lambda (prev almost) (mul (add1 prev) almost))))
 
-(assert-equal (factorial zero) one)
-(assert-equal (factorial one) one)
-(assert-equal (factorial two) two)
-(assert-equal (factorial three) (mul three two))
-(assert-equal (factorial four) (mul four (mul three two)))
-(assert-equal (factorial five) (mul five (mul four (mul three two))))
+(assert-bisimilar (factorial zero) one)
+(assert-bisimilar (factorial one) one)
+(assert-bisimilar (factorial two) two)
+(assert-bisimilar (factorial three) (mul three two))
+(assert-bisimilar (factorial four) (mul four (mul three two)))
+(assert-bisimilar (factorial five) (mul five (mul four (mul three two))))

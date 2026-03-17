@@ -1,4 +1,4 @@
-[assert-equal] fail:
+[assert-bisimilar] fail:
   lhs: (lambda (x y) (x y))
   rhs: (lambda (x y) (y x))
 

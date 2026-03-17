@@ -1,0 +1,4 @@
+[assert-convertible] fail:
+  lhs: id1
+  rhs: id2
+

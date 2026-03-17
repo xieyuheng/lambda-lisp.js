@@ -1,0 +1,12 @@
+(import "cons.lisp" cons car cdr null null?)
+(import "bool.lisp" true false)
+
+(assert-bisimilar true (null? null))
+(assert-bisimilar true (null (lambda (car cdr) false)))
+(assert-bisimilar false (null? (cons null null)))
+(assert-bisimilar false (null? (cons null null)))
+(assert-bisimilar false ((cons null null) (lambda (car cdr) false)))
+(assert-bisimilar false ((lambda (car cdr) false) null null))
+(assert-bisimilar true (null? (car (cons null null))))
+(assert-bisimilar true (null? (cdr (cons null null))))
+(assert-bisimilar true (null? null))

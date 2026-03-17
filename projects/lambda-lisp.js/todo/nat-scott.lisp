@@ -20,10 +20,10 @@
     zero
     (lambda (prev) prev)))
 
-(assert-equal (sub1 three) two)
-(assert-equal (sub1 two) one)
-(assert-equal (sub1 one) zero)
-(assert-equal (sub1 zero) zero)
+(assert-bisimilar (sub1 three) two)
+(assert-bisimilar (sub1 two) one)
+(assert-bisimilar (sub1 one) zero)
+(assert-bisimilar (sub1 zero) zero)
 
 (define (add-wrap add)
   (lambda (m n)
@@ -33,10 +33,10 @@
 
 (define add (Y add-wrap))
 
-(assert-equal (add one one) two)
-(assert-equal (add two two) four)
-(assert-equal (add two five) seven)
-(assert-equal (add three three) six)
+(assert-bisimilar (add one one) two)
+(assert-bisimilar (add two two) four)
+(assert-bisimilar (add two five) seven)
+(assert-bisimilar (add three three) six)
 
 (define (mul-wrap mul)
   (lambda (m n)
@@ -46,10 +46,10 @@
 
 (define mul (Y mul-wrap))
 
-(assert-equal (mul two five) ten)
-(assert-equal (mul three three) nine)
-(assert-equal (add two two) (mul two two))
+(assert-bisimilar (mul two five) ten)
+(assert-bisimilar (mul three three) nine)
+(assert-bisimilar (add two two) (mul two two))
 
-(assert-equal
+(assert-bisimilar
   (mul two (mul two (mul two two)))
   (mul (mul two two) (mul two two)))

@@ -3,9 +3,9 @@
 
 (import "factorial-half.lisp" factorial)
 
-(assert-equal (factorial zero) one)
-(assert-equal (factorial one) one)
-(assert-equal (factorial two) two)
-(assert-equal (factorial three) (mul three two))
-(assert-equal (factorial four) (mul four (mul three two)))
-(assert-equal (factorial five) (mul five (mul four (mul three two))))
+(assert-bisimilar (factorial zero) one)
+(assert-bisimilar (factorial one) one)
+(assert-bisimilar (factorial two) two)
+(assert-bisimilar (factorial three) (mul three two))
+(assert-bisimilar (factorial four) (mul four (mul three two)))
+(assert-bisimilar (factorial five) (mul five (mul four (mul three two))))
