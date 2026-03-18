@@ -20,9 +20,6 @@ export function valueBisimilar(
     }
   }
 
-  trail = [...trail, [lhs, rhs]]
-  trail = [...trail, [rhs, lhs]]
-
   if (lhs.kind === "ClosureValue" && rhs.kind === "ClosureValue") {
     const freshName = L.generateFreshName(lhs.name)
     const freshVar = L.NeutralValue(L.VarNeutral(freshName))
@@ -31,10 +28,14 @@ export function valueBisimilar(
 
   if (
     lhs.kind === "NeutralValue" &&
-    isConstantApply(lhs.neutral) &&
-    rhs.kind === "NeutralValue" &&
-    isConstantApply(rhs.neutral)
+      isConstantApply(lhs.neutral) &&
+      rhs.kind === "NeutralValue" &&
+      isConstantApply(rhs.neutral)
   ) {
+
+    trail = [...trail, [lhs, rhs]]
+    trail = [...trail, [rhs, lhs]]
+
     return valueBisimilar(
       trail,
       reduceConstantApply(lhs.neutral),
@@ -43,10 +44,18 @@ export function valueBisimilar(
   }
 
   if (lhs.kind === "NeutralValue" && isConstantApply(lhs.neutral)) {
+
+    trail = [...trail, [lhs, rhs]]
+    trail = [...trail, [rhs, lhs]]
+
     return valueBisimilar(trail, reduceConstantApply(lhs.neutral), rhs)
   }
 
   if (rhs.kind === "NeutralValue" && isConstantApply(rhs.neutral)) {
+
+    trail = [...trail, [lhs, rhs]]
+    trail = [...trail, [rhs, lhs]]
+
     return valueBisimilar(trail, lhs, reduceConstantApply(rhs.neutral))
   }
 
@@ -71,12 +80,13 @@ function neutralBisimilar(
   }
 
   if (lhs.kind === "ApplyNeutral" && rhs.kind === "ApplyNeutral") {
-    trail = [...trail, [L.NeutralValue(lhs), L.NeutralValue(rhs)]]
-    trail = [...trail, [L.NeutralValue(rhs), L.NeutralValue(lhs)]]
+
+    // trail = [...trail, [L.NeutralValue(lhs), L.NeutralValue(rhs)]]
+    // trail = [...trail, [L.NeutralValue(rhs), L.NeutralValue(lhs)]]
 
     return (
       neutralBisimilar(trail, lhs.target, rhs.target) &&
-      valueBisimilar(trail, lhs.arg, rhs.arg)
+        valueBisimilar(trail, lhs.arg, rhs.arg)
     )
   }
 
