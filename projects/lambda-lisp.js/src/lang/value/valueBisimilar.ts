@@ -17,6 +17,9 @@ export function valueBisimilar(
   if (lhs.kind === "NeutralValue" && rhs.kind === "NeutralValue") {
     if (neutralBisimilar(trail, lhs.neutral, rhs.neutral)) {
       return true
+    } else {
+      // console.log("[neutralBisimilar/fail]", L.formatValue(lhs), L.formatValue(rhs))
+      // console.log(L.formatTrail(trail))
     }
   }
 
@@ -32,8 +35,10 @@ export function valueBisimilar(
     rhs.kind === "NeutralValue" &&
     isConstantApply(rhs.neutral)
   ) {
+    // console.log("[valueBisimilar/1]", L.formatValue(lhs), L.formatValue(rhs))
+    // console.log(L.formatTrail(trail))
+
     trail = [...trail, [lhs, rhs]]
-    trail = [...trail, [rhs, lhs]]
 
     return valueBisimilar(
       trail,
@@ -44,14 +49,12 @@ export function valueBisimilar(
 
   if (lhs.kind === "NeutralValue" && isConstantApply(lhs.neutral)) {
     trail = [...trail, [lhs, rhs]]
-    trail = [...trail, [rhs, lhs]]
 
     return valueBisimilar(trail, reduceConstantApply(lhs.neutral), rhs)
   }
 
   if (rhs.kind === "NeutralValue" && isConstantApply(rhs.neutral)) {
     trail = [...trail, [lhs, rhs]]
-    trail = [...trail, [rhs, lhs]]
 
     return valueBisimilar(trail, lhs, reduceConstantApply(rhs.neutral))
   }
@@ -77,8 +80,7 @@ function neutralBisimilar(
   }
 
   if (lhs.kind === "ApplyNeutral" && rhs.kind === "ApplyNeutral") {
-    // trail = [...trail, [L.NeutralValue(lhs), L.NeutralValue(rhs)]]
-    // trail = [...trail, [L.NeutralValue(rhs), L.NeutralValue(lhs)]]
+    trail = [...trail, [L.NeutralValue(lhs), L.NeutralValue(rhs)]]
 
     return (
       neutralBisimilar(trail, lhs.target, rhs.target) &&
