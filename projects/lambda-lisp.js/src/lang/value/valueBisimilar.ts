@@ -1,6 +1,8 @@
 import * as L from "../index.ts"
 import { trailLoopOccurred, type Trail } from "./Trail.ts"
 
+const debug = false
+
 export function valueBisimilar(
   trail: Trail,
   lhs: L.Value,
@@ -18,8 +20,14 @@ export function valueBisimilar(
     if (neutralBisimilar(trail, lhs.neutral, rhs.neutral)) {
       return true
     } else {
-      // console.log("[neutralBisimilar/fail]", L.formatValue(lhs), L.formatValue(rhs))
-      // console.log(L.formatTrail(trail))
+      if (debug) {
+        console.log(
+          "[neutralBisimilar/neutral-fail]",
+          L.formatValue(lhs),
+          L.formatValue(rhs),
+        )
+        console.log(L.formatTrail(trail))
+      }
     }
   }
 
@@ -35,8 +43,14 @@ export function valueBisimilar(
     rhs.kind === "NeutralValue" &&
     isConstantApply(rhs.neutral)
   ) {
-    // console.log("[valueBisimilar/1]", L.formatValue(lhs), L.formatValue(rhs))
-    // console.log(L.formatTrail(trail))
+    if (debug) {
+      console.log(
+        "[valueBisimilar/lhs/rhs]",
+        L.formatValue(lhs),
+        L.formatValue(rhs),
+      )
+      console.log(L.formatTrail(trail))
+    }
 
     trail = [...trail, [lhs, rhs]]
 
@@ -48,12 +62,30 @@ export function valueBisimilar(
   }
 
   if (lhs.kind === "NeutralValue" && isConstantApply(lhs.neutral)) {
+    if (debug) {
+      console.log(
+        "[valueBisimilar/lhs]",
+        L.formatValue(lhs),
+        L.formatValue(rhs),
+      )
+      console.log(L.formatTrail(trail))
+    }
+
     trail = [...trail, [lhs, rhs]]
 
     return valueBisimilar(trail, reduceConstantApply(lhs.neutral), rhs)
   }
 
   if (rhs.kind === "NeutralValue" && isConstantApply(rhs.neutral)) {
+    if (debug) {
+      console.log(
+        "[valueBisimilar/rhs]",
+        L.formatValue(lhs),
+        L.formatValue(rhs),
+      )
+      console.log(L.formatTrail(trail))
+    }
+
     trail = [...trail, [lhs, rhs]]
 
     return valueBisimilar(trail, lhs, reduceConstantApply(rhs.neutral))

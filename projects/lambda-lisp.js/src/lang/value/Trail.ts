@@ -8,15 +8,13 @@ export function trailLoopOccurred(
   rhs: L.Value,
 ): boolean {
   for (const entry of trail) {
-    if ((
-      L.valueConvertible(entry[0], lhs) &&
-      L.valueConvertible(entry[1], rhs)
-    ) || (
-         L.valueConvertible(entry[0], rhs) &&
-         L.valueConvertible(entry[1], lhs)
-         )) {
-             return true
-             }
+    if (
+      (L.valueConvertible(entry[0], lhs) &&
+        L.valueConvertible(entry[1], rhs)) ||
+      (L.valueConvertible(entry[0], rhs) && L.valueConvertible(entry[1], lhs))
+    ) {
+      return true
+    }
   }
 
   return false
