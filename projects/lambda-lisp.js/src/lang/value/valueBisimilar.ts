@@ -28,11 +28,10 @@ export function valueBisimilar(
 
   if (
     lhs.kind === "NeutralValue" &&
-      isConstantApply(lhs.neutral) &&
-      rhs.kind === "NeutralValue" &&
-      isConstantApply(rhs.neutral)
+    isConstantApply(lhs.neutral) &&
+    rhs.kind === "NeutralValue" &&
+    isConstantApply(rhs.neutral)
   ) {
-
     trail = [...trail, [lhs, rhs]]
     trail = [...trail, [rhs, lhs]]
 
@@ -44,7 +43,6 @@ export function valueBisimilar(
   }
 
   if (lhs.kind === "NeutralValue" && isConstantApply(lhs.neutral)) {
-
     trail = [...trail, [lhs, rhs]]
     trail = [...trail, [rhs, lhs]]
 
@@ -52,7 +50,6 @@ export function valueBisimilar(
   }
 
   if (rhs.kind === "NeutralValue" && isConstantApply(rhs.neutral)) {
-
     trail = [...trail, [lhs, rhs]]
     trail = [...trail, [rhs, lhs]]
 
@@ -80,13 +77,12 @@ function neutralBisimilar(
   }
 
   if (lhs.kind === "ApplyNeutral" && rhs.kind === "ApplyNeutral") {
-
-    // trail = [...trail, [L.NeutralValue(lhs), L.NeutralValue(rhs)]]
-    // trail = [...trail, [L.NeutralValue(rhs), L.NeutralValue(lhs)]]
+    trail = [...trail, [L.NeutralValue(lhs), L.NeutralValue(rhs)]]
+    trail = [...trail, [L.NeutralValue(rhs), L.NeutralValue(lhs)]]
 
     return (
       neutralBisimilar(trail, lhs.target, rhs.target) &&
-        valueBisimilar(trail, lhs.arg, rhs.arg)
+      valueBisimilar(trail, lhs.arg, rhs.arg)
     )
   }
 
